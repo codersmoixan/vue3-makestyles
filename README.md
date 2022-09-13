@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-# vue3-makestyles
-Allows you to write CSS in the form of writing js object, Applicable to vue3
-=======
-
 # vue3-makeStyles
 Allows you to write CSS in the form of writing js object.
 <br />
@@ -207,4 +202,3 @@ You should not:
     }
   })
 ```
->>>>>>> 2dd7d1f (1. Added the ability to write css code in the form of writing objects)
