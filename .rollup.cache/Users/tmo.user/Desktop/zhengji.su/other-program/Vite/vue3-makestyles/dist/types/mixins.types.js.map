@@ -1,1 +1,0 @@
-{"version":3,"file":"mixins.types.js","sourceRoot":"","sources":["../../src/types/mixins.types.ts"],"names":[],"mappings":"","sourcesContent":["import type { ObjectType } from \"./index.types\";\n\nexport type MixinsKey = \"toolbar\" | string | object;\n\nexport type Mixins = ObjectType<MixinsKey>;\n\nexport type MixinsOptions = ObjectType<MixinsKey>;\n"]}

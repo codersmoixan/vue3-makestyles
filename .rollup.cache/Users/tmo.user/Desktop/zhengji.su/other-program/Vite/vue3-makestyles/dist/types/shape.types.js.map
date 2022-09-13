@@ -1,1 +1,0 @@
-{"version":3,"file":"shape.types.js","sourceRoot":"","sources":["../../src/types/shape.types.ts"],"names":[],"mappings":"","sourcesContent":["export interface Shape {\n  borderRadius?: number;\n}\n\nexport type ShapeOptions = Partial<Shape>;\n"]}
