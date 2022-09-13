@@ -11,13 +11,10 @@ import type { Spacing } from "./spacing.types";
 import type { PaletteOptions } from "./palette.types";
 import type { TypographyOptions } from "./typography.types";
 import {ThemeUnitOptions} from "./themeUnit.types";
-import numericalCSS from "../constants/numericalCSS";
 
 export type ObjectType<V = any> = Record<string, V>;
 
 export type Direction = "ltr" | "rtl";
-
-export type ThemeStyles = ObjectType;
 
 export type CSSOptions = ObjectType;
 

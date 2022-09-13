@@ -1,0 +1,1 @@
+{"version":3,"file":"emptyTheme.js","sourceRoot":"","sources":["../../src/constants/emptyTheme.ts"],"names":[],"mappings":"AAAA,IAAM,UAAU,GAAG,EAAE,CAAA;AAErB,eAAe,UAAU,CAAA","sourcesContent":["const emptyTheme = {}\n\nexport default emptyTheme\n"]}

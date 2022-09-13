@@ -10,7 +10,6 @@ import type { TypographyOptions } from "./typography.types";
 import { ThemeUnitOptions } from "./themeUnit.types";
 export declare type ObjectType<V = any> = Record<string, V>;
 export declare type Direction = "ltr" | "rtl";
-export declare type ThemeStyles = ObjectType;
 export declare type CSSOptions = ObjectType;
 export interface ThemeOptions {
     shape?: ShapeOptions;

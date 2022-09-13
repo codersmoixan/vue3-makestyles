@@ -1,0 +1,1 @@
+{"version":3,"file":"test.js","sourceRoot":"","sources":["../../src/__test__/test.ts"],"names":[],"mappings":";AAAA,sCAAsC;AACtC,EAAE;AACF,6BAA6B;AAC7B,gDAAgD;AAChD,MAAM","sourcesContent":["// import { Greeter } from '../index';\n//\n// test('My Greeter', () => {\n//   expect(Greeter('Carl')).toBe('Hello Carl');\n// });\n"]}

@@ -1,0 +1,1 @@
+{"version":3,"file":"zIndex.types.js","sourceRoot":"","sources":["../../src/types/zIndex.types.ts"],"names":[],"mappings":"","sourcesContent":["export interface ZIndex {\n  mobileStepper: number;\n  speedDial: number;\n  appBar: number;\n  drawer: number;\n  modal: number;\n  snackbar: number;\n  tooltip: number;\n}\n\nexport type ZIndexOptions = Partial<ZIndex>;\n"]}
