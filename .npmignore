@@ -10,5 +10,6 @@ rollup.config.js
 .eslintrc
 .eslintignore
 .babelrc
+.idea
 example/
 src/**/*test.js

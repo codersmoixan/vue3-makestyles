@@ -1,4 +1,4 @@
-import path from "path";
+import { defineConfig } from "rollup";
 import nodeResolve from 'rollup-plugin-node-resolve'
 import replace from 'rollup-plugin-replace'
 import commonjs from 'rollup-plugin-commonjs'
@@ -9,40 +9,6 @@ import { terser } from 'rollup-plugin-terser'
 import builtins from 'rollup-plugin-node-builtins'
 import visualizer from 'rollup-plugin-visualizer'
 import typescript from "@rollup/plugin-typescript"
-
-const cjs = {
-  exports: 'named',
-  format: 'cjs',
-  sourcemap: true,
-};
-
-const esm = {
-  format: 'esm',
-  sourcemap: true,
-};
-
-const getCJS = override => ({ ...cjs, ...override });
-const getESM = override => ({ ...esm, ...override });
-
-const minifierPlugin = terser({
-  compress: {
-    passes: 10,
-    keep_infinity: true,
-    pure_getters: true,
-  },
-  ecma: 5,
-  format: {
-    wrap_func_args: false,
-    comments: /^\s*([@#]__[A-Z]+__\s*$|@cc_on)/,
-    preserve_annotations: true,
-  },
-});
-
-const extensions = [
-  '.js',
-  '.ts',
-  '.tsx'
-]
 
 const processShim = '\0process-shim'
 
@@ -58,7 +24,8 @@ const globals = { vue: 'Vue' }
 
 const prodOutput = [
   { exports, file: 'dist/vue-makestyles.min.js', format: 'umd', name: moduleName },
-  { exports, globals, file: 'dist/vue-makestyles.esm.js', format: 'es', name: moduleName }
+  { exports, file: 'dist/vue-makestyles.esm.js', format: 'esm', name: moduleName },
+  { exports, file: 'dist/vue-makestyles.cjs.js', format: 'cjs', name: moduleName }
 ]
 
 const devOutput = [
@@ -107,22 +74,11 @@ const plugins = [
 
 if (prod) plugins.push(terser(), visualizer({ filename: './bundle-stats.html' }))
 
-export default {
-  input: 'src/index.ts',
-  output,
-  plugins,
-  external
-}
-
-// export default {
-//   input: 'src/index.ts',
-//   output,
-//   plugins: [
-//     tsPlugin,
-//     babel({
-//       babelrc: true
-//     }),
-//     buble()
-//   ],
-//   external: ['vue'] // 将[模块]视为外部依赖项
-// }
+export default defineConfig([
+  {
+    input: 'src/index.ts',
+    output,
+    plugins,
+    external
+  },
+])
