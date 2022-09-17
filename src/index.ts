@@ -11,6 +11,11 @@ export { default as ThemeProvider } from "./components/Theme/ThemeProvider"
 
 export { TypographyKey } from "./types/typography.types"
 export { PaletteTextColorKey } from "./types/palette.types"
+export { Theme, ThemeOptions } from "./types/index.types"
+export { BreakpointsKey, Breakpoints, BreakpointsOptions, BreakpointsValues } from "./types/breakpoints.types"
+export { Spacing } from "./types/spacing.types"
+export { ThemeUnitOptions } from "./types/themeUnit.types"
+export { MixinsKey, MixinsOptions, Mixins } from "./types/mixins.types"
 
 import makeStyles from "./constructors/makeStyles";
 

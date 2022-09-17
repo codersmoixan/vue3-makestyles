@@ -1,7 +1,7 @@
 import type { ExtractPropTypes, Ref } from "vue";
 import type { ObjectType, Theme } from "../../types/index.types";
 
-export type StyleOrCreator = (theme: Theme, props?: ExtractPropTypes<ObjectType>) => any | ObjectType
+export type StyleOrCreator = ((theme: Theme, props?: ExtractPropTypes<ObjectType>) => any) | ObjectType
 export interface StyleCreatorValue {
   create: (theme: Theme, props: ExtractPropTypes<ObjectType>, name: string) => any | ObjectType
   options: ObjectType
