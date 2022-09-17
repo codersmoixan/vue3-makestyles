@@ -1,12 +1,12 @@
 {
   "name": "vue3-makestyles",
-  "version": "1.0.0-alpha",
+  "version": "1.0.1",
   "description": "Allows you to write CSS in the form of writing js object, Applicable to vue3",
   "main": "dist/vue-makestyles.cjs.js",
   "jsnext:main": "dist/vue-makestyles.esm.js",
   "module": "dist/vue-makestyles.esm.js",
   "browser": "dist/vue-makestyles.min.js",
-  "types": "index.d.ts",
+  "types": "dist/index.d.ts",
   "scripts": {
     "build": "npm run build:lib && npm run build:dist",
     "build:lib": "babel --out-dir lib src",
