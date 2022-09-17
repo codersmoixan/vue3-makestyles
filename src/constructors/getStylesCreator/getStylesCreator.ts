@@ -1,11 +1,11 @@
-import { isEmpty, isFunction, isObject, isUndefined } from "../../utils/helper";
+import { isEmpty, isObject, isUndefined } from "../../utils/helper";
 import deepmerge from "../../utils/styled/deepmerge";
 import emptyTheme from "../../constants/emptyTheme";
 import type { StyleCreatorValue, StyleOrCreator } from "../types/index.types";
 import type { Theme } from "../../types/index.types";
 
 export default function getStylesCreator(stylesOrCreator: StyleOrCreator): StyleCreatorValue {
-  const themingEnabled = isFunction(stylesOrCreator)
+  const themingEnabled = typeof stylesOrCreator === 'function'
 
   if (process.env.NODE_ENV !== 'production') {
     if (!isObject(stylesOrCreator) && !themingEnabled) {
@@ -22,7 +22,7 @@ export default function getStylesCreator(stylesOrCreator: StyleOrCreator): Style
     create: (theme: Theme, props: object, name: string) => {
       let styles;
       try {
-        styles = themingEnabled ? stylesOrCreator(theme, props) : stylesOrCreator;
+        styles = themingEnabled ? stylesOrCreator(theme, props) : stylesOrCreator
       } catch (err) {
         if (process.env.NODE_ENV !== 'production') {
           if (themingEnabled && theme === emptyTheme) {
