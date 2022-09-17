@@ -1,6 +1,6 @@
 {
   "name": "vue3-makestyles",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Allows you to write CSS in the form of writing js object, Applicable to vue3",
   "main": "dist/vue-makestyles.cjs.js",
   "jsnext:main": "dist/vue-makestyles.esm.js",
