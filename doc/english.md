@@ -3,7 +3,7 @@ Allows you to write CSS in the form of writing js object.
 <br />
 The api implementation draws on <a href="https://github.com/mui/material-ui/blob/master/packages/mui-styles/src/makeStyles/makeStyles.js">mui</a>，Some tool functions are borrowed from <a href="https://github.com/UX-and-I/vue3-styled-components">vue3-styled-components</a>.
 <br />
-Reading this document will help you use makeStyles. The following examples use `jsx` encoding.
+Reading this document will help you use makeStyles. The following examples use `jsx` encoding
 
 English <a href="https://github.com/codersmoixan/vue3-makestyles/doc/chinese.md">中文文档</a>
 
@@ -115,7 +115,7 @@ Enter the corresponding rule breakpoints for matching, `xs`, `sm`, `md`, `lg`, `
 ```
 It's worth noting that if you choose to call the `between` method, then you need to pass in two breakpoint parameters, and it will return true when only between your breakpoints
 
-If you need to set custom breakpoints, you can customize them in the `theme.ts` file, and then pass the configuration to `ThemeProvider`, so that makeStyles can read the custom configuration.
+If you need to set custom breakpoints, you can customize them in the <a href="https://github.com/codersmoixan/vue3-makestyles/example/theme.js">theme.js</a> file, and then pass the configuration to `ThemeProvider`, so that makeStyles can read the custom configuration.
 
 makeStyles also provides hook functions that you can use when writing components.
 ```JS
@@ -219,7 +219,7 @@ You should not:
         // ... 
       }
       
-      return () => <button onClick={handleClick}>Test</button>
+      return () => <button onClick={handleClick}>按钮</button>
     }
   })
 ```
