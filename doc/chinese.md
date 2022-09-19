@@ -5,7 +5,7 @@ api实现借鉴了 <a href="https://github.com/mui/material-ui/blob/master/packa
 <br />
 阅读本文档将帮助您使用 `makeStyles`， 以下示例使用 `jsx` 编码。
 
-中文文档 <a href="https://github.com/codersmoixan/vue3-makestyles/doc/english.md">English</a>
+中文文档 <a href="https://github.com/codersmoixan/vue3-makestyles/blob/master/doc/english.md">English</a>
 
 # 安装
 ```shell
@@ -153,7 +153,7 @@ $ yarn add vue3-makestyles
 ## 自定义配置
 `makeStyles` 允许您自定义一些配置和全局设置常见的 CSS 样式。
 <br />
-你可以在你的项目目录下创建一个自定义的配置文件，比如<a href="https://github.com/codersmoixan/vue3-makestyles/example/theme.js">theme.js</a>，你可以在其中自定义一些你需要的配置。
+你可以在你的项目目录下创建一个自定义的配置文件，比如<a href="https://github.com/codersmoixan/vue3-makestyles/blob/master/example/theme.js">theme.js</a>，你可以在其中自定义一些你需要的配置。
 ```JS
   import { createBreakpoints, createTheme } from "vue3-makestyles";
 
@@ -235,7 +235,7 @@ $ yarn add vue3-makestyles
     componentName: 'TestComponent' // This name is customizable
   })
 ```
-你可以在你的 <a href="https://github.com/codersmoixan/vue3-makestyles/example/theme.js">theme.js</a> 文件中统一配置你的css常用样式，并在`makeStyles`函数中与你在`componentName`中定义的名称绑定。
+你可以在你的 <a href="https://github.com/codersmoixan/vue3-makestyles/blob/master/example/theme.js">theme.js</a> 文件中统一配置你的css常用样式，并在`makeStyles`函数中与你在`componentName`中定义的名称绑定。
 ```JS
   export default createTheme({
     // ...
