@@ -23,6 +23,9 @@
     "css-in-js",
     "styling"
   ],
+  "files": [
+    "/dist"
+  ],
   "bugs": {
     "url": "https://github.com/codersmoixan/vue3-makestyles/issues"
   },
