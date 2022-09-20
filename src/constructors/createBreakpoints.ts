@@ -48,9 +48,7 @@ function createBreakpoints(breakpoints: BreakpointsOptions = {}): Breakpoints {
     const endValue = values[end] ?? 0;
     const endMedia = (endIndex !== -1 ? startValue : endValue) - step / 100;
 
-    const query =
-      `@media (min-width:${startMedia}${unit}) and ` +
-      `(max-width:${endMedia}${unit})`;
+    const query = `@media (min-width:${startMedia}${unit}) and (max-width:${endMedia}${unit})`;
 
     if (!get) { return query; }
     if (get) {

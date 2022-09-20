@@ -41,7 +41,7 @@
     "no-arg":true,// 不允许使用arguments.callee
     "no-bitwise":false, // 不允许使用特殊运算符 &, &=, |, |=, ^, ^=, <<, <<=, >>, >>=, >>>, >>>=, ~
     "no-conditional-assignment":true,// do while/for/if/while 语句中将会对例如if(a=b)进行检查
-    "no-console":false,// 不允许使用console对象
+    "no-console":[true, "log"],// 不允许使用console对象
     "no-debugger":true,// 不允许使用debugger
     "no-duplicate-super":true,// 不允许super() 两次使用在构造函数中
     "no-empty":false,// 函数体不允许空
@@ -61,6 +61,19 @@
     // "restrict-plus-operands":true,// 不允许自动类型转换，如果已设置不允许使用关键字var该设置无效
     "triple-equals":true,// 必须使用恒等号，进行等于比较
     "use-isnan":true,// 只允许使用isNaN方法检查数字是否有效
+    "no-var-requires": true, // 禁用require语句
+    "unified-signatures": true, // 参数重载警告
+    "ban-comma-operator": true, // 禁用逗号运算符
+    "function-constructor": true, // 禁用内置的Function构造函数
+    "no-async-without-await": true, // 有异步标签的函数需要在返回值前加上await
+    "no-construct": true, // 禁用String,Number,Boolean的构造函数
+    "no-duplicate-switch-case": true, // 禁止多重switch
+    "no-duplicate-variable": true, // 禁止在同一代码块中两次声明同一个变量
+    "no-dynamic-delete": true, // 禁用delete操作符
+    "no-implicit-dependencies": true, // 禁止引用package.json范围外的包
+    "no-misused-new": true, // 禁止为类或者接口重新定义构造函数
+    "no-promise-as-boolean": true, // 警告在if条件中使用Promise函数作为条件
+    "no-return-await": true, // 禁止不必要的 return await
 
     // 维护性功能
     "indent":[true, "spaces", 4],// 每行开始以4个空格符开始
@@ -68,7 +81,7 @@
     "max-file-line-count":[true,1000],// 定义每个文件代码行数
     "max-line-length":[true,300],// 定义每行代码数
     "no-default-export":false,// 禁止使用export default关键字，因为当export对象名称发生变化时，需要修改import中的对象名。https://github.com/palantir/tslint/issues/1182#issue-151780453
-    "no-duplicate-imports":true,// 禁止在一个文件内，多次引用同一module
+//    "no-duplicate-imports":true,// 禁止在一个文件内，多次引用同一module
 
     // 格式
 //    "align":[true,"parameters","arguments","statements","members","elements"],// 定义对齐风格

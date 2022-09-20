@@ -1,4 +1,4 @@
-import { defineComponent, provide, toRefs } from "vue";
+import { defineComponent, provide } from "vue";
 import type { PropType } from "vue";
 import type { Theme } from "../../types/index.types";
 
