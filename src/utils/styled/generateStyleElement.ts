@@ -1,5 +1,5 @@
-import type { Ref } from "vue";
 import getStyleElement from "./getStyleElement";
+import type { Ref } from "vue";
 
 function generateStyleElement(
   css: string,

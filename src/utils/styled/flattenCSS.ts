@@ -1,4 +1,4 @@
-import {toLine, isObject, isEmpty, isNumber} from "../helper";
+import { toLine, isObject, isEmpty, isNumber } from "../helper";
 import numericalCSS from "../../constants/numericalCSS";
 import type { InitialObject } from "../../types/index.types";
 

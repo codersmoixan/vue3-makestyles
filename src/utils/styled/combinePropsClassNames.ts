@@ -1,4 +1,4 @@
-import {isEmpty} from "../helper";
+import { isEmpty } from "../helper";
 import type { InitialObject } from "../../types/index.types";
 
 function combinePropsClassNames(

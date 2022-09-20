@@ -1,6 +1,6 @@
-import createBreakpoints from "../constructors/createBreakpoints";
 import { inject } from "vue";
-import {isEmpty} from "../utils/helper";
+import createBreakpoints from "../constructors/createBreakpoints";
+import { isEmpty } from "../utils/helper";
 import type { Theme } from "../types/index.types";
 
 const useTheme = (): Theme => {

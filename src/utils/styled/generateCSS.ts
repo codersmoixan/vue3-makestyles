@@ -2,7 +2,7 @@ import flattenCSS from "./flattenCSS";
 import stringifyCSS from "./stringifyCSS";
 import stylis from "stylis";
 import generateClassName from "./generateClassName";
-import {isUndefined} from "../helper";
+import { isUndefined } from "../helper";
 import type { InitialObject } from "../../types/index.types";
 import type { GeneratedCSS } from "../../types/generateCSS.type";
 

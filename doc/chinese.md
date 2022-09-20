@@ -232,10 +232,10 @@ $ yarn add vue3-makestyles
   const useStyles = makestyles({
     // ...
   }, {
-    componentName: 'TestComponent' // This name is customizable
+    name: 'TestComponent' // This name is customizable
   })
 ```
-你可以在你的 <a href="https://github.com/codersmoixan/vue3-makestyles/blob/master/example/theme.js">theme.js</a> 文件中统一配置你的css常用样式，并在`makeStyles`函数中与你在`componentName`中定义的名称绑定。
+你可以在你的 <a href="https://github.com/codersmoixan/vue3-makestyles/blob/master/example/theme.js">theme.js</a> 文件中统一配置你的css常用样式，并在`makeStyles`函数中与你在`name`中定义的名称绑定。
 ```JS
   export default createTheme({
     // ...

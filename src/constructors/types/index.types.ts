@@ -15,7 +15,7 @@ export interface EffectOptions {
   name: string
 }
 export interface MakeStylesOptions extends InitialObject{
-  componentName?: string
+  name?: string
   classNamePrefix?: string,
   defaultTheme?: InitialObject
 }

@@ -1,4 +1,4 @@
-import {isUndefined} from "../helper";
+import { isUndefined } from "../helper";
 import generateCSS from "./generateCSS";
 import generateStyleElement from "./generateStyleElement";
 import generateStyleElementID from "./generateStyleElementID";

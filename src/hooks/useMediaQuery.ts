@@ -1,6 +1,7 @@
-import {onMounted, ref, onUnmounted, Ref} from "vue";
+import { onMounted, ref, onUnmounted } from "vue";
 import useTheme from "./useTheme";
-import {isUndefined, isFunction, isString} from "../utils/helper";
+import { isUndefined, isFunction, isString } from "../utils/helper";
+import type { Ref } from "vue"
 import type { Theme } from "../types/index.types";
 
 const useMediaQuery = (queryInput: (theme: Theme) => any): Ref<boolean> => {

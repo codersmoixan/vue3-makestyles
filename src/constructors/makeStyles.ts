@@ -40,14 +40,14 @@ function makeStyles(
   options: MakeStylesOptions = {}
 ) {
   const {
-    componentName = '',
+    name = '',
     classNamePrefix: classNamePrefixOption,
     defaultTheme = emptyTheme
   } = options
   const stylesCreator = getStylesCreator(stylesOrCreator);
-  const classNamePrefix = classNamePrefixOption || componentName || 'makeStyles';
+  const classNamePrefix = classNamePrefixOption || name || 'makeStyles';
   stylesCreator.options = {
-    name: componentName,
+    name,
     meta: classNamePrefix,
     classNamePrefix,
   }
@@ -62,7 +62,7 @@ function makeStyles(
 
     watchEffect(() => {
       const current = {
-        name: componentName,
+        name,
         classNamePrefix,
         theme,
         stylesCreator,
