@@ -10,7 +10,6 @@ export { default as Hidden } from "./components/Hidden"
 export { default as ThemeProvider } from "./components/Theme/ThemeProvider"
 
 export { TypographyKey } from "./types/typography.types"
-export { PaletteTextColorKey } from "./types/palette.types"
 export { Theme, ThemeOptions } from "./types/index.types"
 export { BreakpointsKey, Breakpoints, BreakpointsOptions, BreakpointsValues } from "./types/breakpoints.types"
 export { Spacing } from "./types/spacing.types"

@@ -23,16 +23,16 @@ function createBreakpoints(breakpoints: BreakpointsOptions = {}): Breakpoints {
     const value = values[key];
     const query = `@media (min-width:${value}${unit})`;
 
-    if (!get) return query;
-    if (get) return { query, value, get, status: "up" };
+    if (!get) { return query; }
+    if (get) { return { query, value, get, status: "up" }; }
   };
 
   const down = (key: BreakpointsKey, get?: boolean) => {
     const value = values[key] ?? 0;
     const query = `@media (max-width:${value - step / 100}${unit})`;
 
-    if (!get) return query;
-    if (get) return { query, value, get, status: "down" };
+    if (!get) { return query; }
+    if (get) { return { query, value, get, status: "down" }; }
   };
 
   const between = (
@@ -52,14 +52,15 @@ function createBreakpoints(breakpoints: BreakpointsOptions = {}): Breakpoints {
       `@media (min-width:${startMedia}${unit}) and ` +
       `(max-width:${endMedia}${unit})`;
 
-    if (!get) return query;
-    if (get)
+    if (!get) { return query; }
+    if (get) {
       return {
         query,
         get,
         value: [startMedia, endMedia],
         status: "between",
       };
+    }
   };
 
   return {

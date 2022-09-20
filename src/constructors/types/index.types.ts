@@ -1,21 +1,21 @@
 import type { ExtractPropTypes, Ref } from "vue";
-import type { ObjectType, Theme } from "../../types/index.types";
+import type { InitialObject, Theme } from "../../types/index.types";
 
-export type StyleOrCreator = ObjectType | ((theme: Theme, props?: ExtractPropTypes<ObjectType>) => any)
+export type StyleOrCreator = InitialObject | ((theme: Theme, props?: ExtractPropTypes<InitialObject>) => any)
 export interface StyleCreatorValue {
-  create: (theme: Theme, props: ExtractPropTypes<ObjectType>, name: string) => any | ObjectType
-  options: ObjectType
+  create: (theme: Theme, props: ExtractPropTypes<InitialObject>, name: string) => any | InitialObject
+  options: InitialObject
 }
 export interface EffectOptions {
   classNamePrefix: string
   theme: Theme
   stylesCreator: StyleCreatorValue
   styleEleName: Ref<string | null>
-  classNames: ObjectType
+  classNames: InitialObject
   name: string
 }
-export interface MakeStylesOptions extends ObjectType{
+export interface MakeStylesOptions extends InitialObject{
   componentName?: string
   classNamePrefix?: string,
-  defaultTheme?: ObjectType
+  defaultTheme?: InitialObject
 }

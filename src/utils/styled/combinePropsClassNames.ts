@@ -1,15 +1,15 @@
 import {isEmpty} from "../helper";
-import type { ObjectType } from "../../types/index.types";
+import type { InitialObject } from "../../types/index.types";
 
 function combinePropsClassNames(
-  makeClassNames: ObjectType<string>,
-  propsClassNames: ObjectType<string> = {}
-): ObjectType<string> {
+  makeClassNames: InitialObject<string>,
+  propsClassNames: InitialObject<string> = {}
+): InitialObject<string> {
   if (isEmpty(propsClassNames)) {
     return makeClassNames;
   }
 
-  const combineClassNames: ObjectType<string> = Object.assign(
+  const combineClassNames: InitialObject<string> = Object.assign(
     {},
     makeClassNames
   );

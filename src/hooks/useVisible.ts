@@ -1,3 +1,4 @@
+import {ref} from "vue";
 import {
   filterKeys,
   findMatchKey,
@@ -7,7 +8,6 @@ import useMediaQuery from "./useMediaQuery";
 import type { Theme } from "../types/index.types";
 import type { matchThresholdKey } from "../types/hidden.types";
 import {isUndefined} from "../utils/helper";
-import {ref} from "vue";
 
 const useVisible = (props: object) => {
   const isHide = ref<boolean>(true)

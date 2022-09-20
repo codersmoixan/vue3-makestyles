@@ -1,8 +1,8 @@
 import {toLine, isObject, isEmpty, isNumber} from "../helper";
 import numericalCSS from "../../constants/numericalCSS";
-import type { ObjectType } from "../../types/index.types";
+import type { InitialObject } from "../../types/index.types";
 
-function flattenCSS<T = ObjectType>(CSSOptions: T, stylesCreatorOptions: ObjectType): string[] {
+function flattenCSS<T = InitialObject>(CSSOptions: T, stylesCreatorOptions: InitialObject): string[] {
   const CSSChunk: string[] = [];
   const { unit, numericalCSS: numericalCss } = stylesCreatorOptions
 

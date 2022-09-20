@@ -3,12 +3,12 @@ import stringifyCSS from "./stringifyCSS";
 import stylis from "stylis";
 import generateClassName from "./generateClassName";
 import {isUndefined} from "../helper";
-import type { ObjectType } from "../../types/index.types";
+import type { InitialObject } from "../../types/index.types";
 import type { GeneratedCSS } from "../../types/generateCSS.type";
 
-function generateCSS<T = ObjectType>(
+function generateCSS<T = InitialObject>(
   options: T,
-  stylesCreatorOptions: ObjectType,
+  stylesCreatorOptions: InitialObject,
   className?: string
 ): GeneratedCSS {
   const { classNamePrefix } = stylesCreatorOptions

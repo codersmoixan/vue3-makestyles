@@ -6,7 +6,7 @@ import type { GenerateThemeParam } from "../../types/generateCSS.type";
 
 function generateThemeCSS(options: GenerateThemeParam): string | null {
   const { variant, theme, element, classNamePrefix } = options
-  if (isUndefined(variant)) return null;
+  if (isUndefined(variant)) { return null; }
 
   const variantThemeOptions = theme.css?.[variant];
 

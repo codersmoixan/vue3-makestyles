@@ -5,17 +5,16 @@ import {
   watchEffect,
 } from "vue";
 import useTheme from "../hooks/useTheme";
-import { isEmpty } from "../utils/helper"
+import { forIn, isEmpty } from "../utils/helper"
 import combineCSSAndCreateStyleElement from "../utils/styled/combineCSSAndCreateStyleElement";
 import combinePropsClassNames from "../utils/styled/combinePropsClassNames";
 import deleteCSSAndStyleElement from "../utils/styled/deleteCSSAndStyleElement";
 import getStylesCreator from "./getStylesCreator/getStylesCreator";
 import emptyTheme from "../constants/emptyTheme";
-import type { ObjectType } from "../types/index.types";
-import type { MakeStylesOptions, StyleOrCreator } from "./types/index.types"
-import type { EffectOptions } from "./types/index.types";
+import type { InitialObject } from "../types/index.types";
+import type { MakeStylesOptions, StyleOrCreator, EffectOptions } from "./types/index.types"
 
-const effectClasses = (options: EffectOptions, props: ObjectType = {}) => {
+const effectClasses = (options: EffectOptions, props: InitialObject = {}) => {
   const { theme, name,  stylesCreator, classNames, styleEleName } = options
 
   const styles = stylesCreator.create(theme, props, name);
@@ -33,9 +32,7 @@ const effectClasses = (options: EffectOptions, props: ObjectType = {}) => {
 
   styleEleName.value = css.styleEleName;
 
-  for (const key in combineClasses) {
-    classNames[key] = combineClasses[key];
-  }
+  forIn(classNames, combineClasses)
 };
 
 function makeStyles(
@@ -61,7 +58,7 @@ function makeStyles(
     stylesCreator.options.numericalCSS = theme.numericalCSS
 
     const styleEleName = ref<string | null>("");
-    const classNames = reactive<ObjectType>({});
+    const classNames = reactive<InitialObject>({});
 
     watchEffect(() => {
       const current = {
@@ -77,8 +74,6 @@ function makeStyles(
     });
 
     onUnmounted(() => {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
       const combineClassNamesValue = Object.values(classNames);
       deleteCSSAndStyleElement(
         `.${combineClassNamesValue?.[0]}`,
