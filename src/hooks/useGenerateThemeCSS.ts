@@ -1,7 +1,7 @@
 import { ref } from "vue";
 import useTheme from "./useTheme";
 import generateThemeCSS from "../utils/styled/generateThemeCSS";
-import type { MakeStylesOptions } from "../constructors/types/index.types";
+import type { MakeStylesOptions } from "../types/constructors.types";
 
 const useGenerateThemeCSS = (options: MakeStylesOptions = {}) => {
   const theme = useTheme();

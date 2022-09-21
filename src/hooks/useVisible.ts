@@ -6,7 +6,7 @@ import {
 } from "../utils/theme/helper";
 import { isUndefined } from "../utils/helper";
 import useMediaQuery from "./useMediaQuery";
-import type { Theme } from "../types/index.types";
+import type { Theme } from "../types/theme.types";
 import type { matchThresholdKey } from "../types/hidden.types";
 
 const useVisible = (props: object) => {

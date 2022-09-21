@@ -1,6 +1,6 @@
 import { defineComponent, provide } from "vue";
 import type { PropType } from "vue";
-import type { Theme } from "../../types/index.types";
+import type { Theme } from "../../types/theme.types";
 
 export default defineComponent({
   name: "ThemeProvider",

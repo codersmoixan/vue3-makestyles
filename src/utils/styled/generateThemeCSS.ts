@@ -2,9 +2,9 @@ import { isUndefined } from "../helper";
 import generateCSS from "./generateCSS";
 import generateStyleElement from "./generateStyleElement";
 import generateStyleElementID from "./generateStyleElementID";
-import type { GenerateThemeParam } from "../../types/generateCSS.type";
+import type * as Styles from "../../types/index.types";
 
-function generateThemeCSS(options: GenerateThemeParam): string | null {
+function generateThemeCSS(options: Styles.GenerateThemeParam): string | null {
   const { variant, theme, element, classNamePrefix } = options
   if (isUndefined(variant)) { return null; }
 

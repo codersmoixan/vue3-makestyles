@@ -1,10 +1,9 @@
 import { isEmpty, isObject, isUndefined } from "../../utils/helper";
 import deepmerge from "../../utils/styled/deepmerge";
 import emptyTheme from "../../constants/emptyTheme";
-import type { StyleCreatorValue, StyleOrCreator } from "../types/index.types";
-import type { Theme } from "../../types/index.types";
+import type * as Styles from "../../types/index.types";
 
-export default function getStylesCreator(stylesOrCreator: StyleOrCreator): StyleCreatorValue {
+export default function getStylesCreator(stylesOrCreator: Styles.StyleOrCreator): Styles.StyleCreatorValue {
   const themingEnabled = typeof stylesOrCreator === 'function'
 
   if (process.env.NODE_ENV !== 'production') {
@@ -19,7 +18,7 @@ export default function getStylesCreator(stylesOrCreator: StyleOrCreator): Style
   }
 
   return {
-    create: (theme: Theme, props: object, name: string) => {
+    create: (theme: Styles.Theme, props: object, name: string) => {
       let styles;
       try {
         styles = themingEnabled ? stylesOrCreator(theme, props) : stylesOrCreator

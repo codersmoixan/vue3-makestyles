@@ -1,10 +1,6 @@
-import type {
-  Breakpoints,
-  BreakpointsOptions,
-  BreakpointsKey,
-} from "../types/breakpoints.types";
+import type * as Styles from "../types/breakpoints.types";
 
-function createBreakpoints(breakpoints: BreakpointsOptions = {}): Breakpoints {
+function createBreakpoints(breakpoints: Styles.BreakpointsOptions = {}): Styles.Breakpoints {
   const {
     values = {
       xs: 0,
@@ -15,11 +11,11 @@ function createBreakpoints(breakpoints: BreakpointsOptions = {}): Breakpoints {
     },
     unit = "px",
     step = 5,
-  }: BreakpointsOptions = breakpoints;
+  }: Styles.BreakpointsOptions = breakpoints;
 
-  const keys = Object.keys(values) as BreakpointsKey[];
+  const keys = Object.keys(values) as Styles.BreakpointsKey[];
 
-  const up = (key: BreakpointsKey, get?: boolean) => {
+  const up = (key: Styles.BreakpointsKey, get?: boolean) => {
     const value = values[key];
     const query = `@media (min-width:${value}${unit})`;
 
@@ -27,7 +23,7 @@ function createBreakpoints(breakpoints: BreakpointsOptions = {}): Breakpoints {
     if (get) { return { query, value, get, status: "up" }; }
   };
 
-  const down = (key: BreakpointsKey, get?: boolean) => {
+  const down = (key: Styles.BreakpointsKey, get?: boolean) => {
     const value = values[key] ?? 0;
     const query = `@media (max-width:${value - step / 100}${unit})`;
 
@@ -36,8 +32,8 @@ function createBreakpoints(breakpoints: BreakpointsOptions = {}): Breakpoints {
   };
 
   const between = (
-    start: BreakpointsKey,
-    end: BreakpointsKey,
+    start: Styles.BreakpointsKey,
+    end: Styles.BreakpointsKey,
     get?: boolean
   ) => {
     const endIndex: number = keys.indexOf(end);

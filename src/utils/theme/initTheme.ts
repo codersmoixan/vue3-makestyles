@@ -1,6 +1,6 @@
 import createBreakpoints from "../../constructors/createBreakpoints";
 import {isEmpty, isUndefined} from "../helper";
-import type { Theme, ThemeOptions } from "../../types/index.types";
+import type { Theme, ThemeOptions } from "../../types/theme.types";
 
 function initTheme<T extends ThemeOptions>(options: T): Theme {
   const {

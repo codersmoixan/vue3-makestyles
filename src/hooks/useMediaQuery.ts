@@ -2,7 +2,7 @@ import { onMounted, ref, onUnmounted } from "vue";
 import useTheme from "./useTheme";
 import { isUndefined, isFunction, isString } from "../utils/helper";
 import type { Ref } from "vue"
-import type { Theme } from "../types/index.types";
+import type { Theme } from "../types/theme.types";
 
 const useMediaQuery = (queryInput: (theme: Theme) => any): Ref<boolean> => {
   const supportMatchMedia = window && !isUndefined(window.matchMedia);

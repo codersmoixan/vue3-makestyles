@@ -1,4 +1,4 @@
-import type { CSSOptions } from "./index.types";
+import type { CSSOptions } from "./theme.types";
 
 export type TypographyKey =
   | "h1"

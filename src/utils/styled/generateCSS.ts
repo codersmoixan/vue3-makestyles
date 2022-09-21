@@ -3,17 +3,16 @@ import stringifyCSS from "./stringifyCSS";
 import stylis from "stylis";
 import generateClassName from "./generateClassName";
 import { isUndefined } from "../helper";
-import type { InitialObject } from "../../types/index.types";
-import type { GeneratedCSS } from "../../types/generateCSS.type";
+import type * as Styles from "../../types/index.types"
 
-function generateCSS<T = InitialObject>(
-  options: T,
-  stylesCreatorOptions: InitialObject,
+function generateCSS(
+  options: Styles.InitialObject,
+  stylesCreatorOptions: Styles.InitialObject,
   className?: string
-): GeneratedCSS {
+): Styles.GeneratedCSS {
   const { classNamePrefix } = stylesCreatorOptions
 
-  const flatCSS = flattenCSS<T>(options, stylesCreatorOptions);
+  const flatCSS = flattenCSS(options, stylesCreatorOptions);
 
   const stringCSS = stringifyCSS(flatCSS);
   const selector = generateClassName(stringCSS);

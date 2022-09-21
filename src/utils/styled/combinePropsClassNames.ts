@@ -1,24 +1,22 @@
 import { isEmpty } from "../helper";
-import type { InitialObject } from "../../types/index.types";
+import type * as Styles from "../../types/index.types";
 
 function combinePropsClassNames(
-  makeClassNames: InitialObject<string>,
-  propsClassNames: InitialObject<string> = {}
-): InitialObject<string> {
+  makeClassNames: Styles.InitialObject<string>,
+  propsClassNames: Styles.InitialObject<string> = {}
+): Styles.InitialObject<string> {
   if (isEmpty(propsClassNames)) {
     return makeClassNames;
   }
 
-  const combineClassNames: InitialObject<string> = Object.assign(
+  const combineClassNames: Styles.InitialObject<string> = Object.assign(
     {},
     makeClassNames
   );
 
-  for (const key in propsClassNames) {
+  for (const [key, value] of Object.entries(propsClassNames)) {
     if (combineClassNames[key]) {
-      combineClassNames[key] = combineClassNames[
-        key
-        ] += ` ${propsClassNames[key]}`;
+      combineClassNames[key] = combineClassNames[key] += ` ${value}`;
     }
   }
 

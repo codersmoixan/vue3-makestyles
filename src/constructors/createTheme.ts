@@ -1,6 +1,6 @@
 import initTheme from "../utils/theme/initTheme";
-import type { Theme, ThemeOptions } from "../types/index.types";
+import type * as Styles from "../types/index.types";
 
-export default function createTheme<T extends ThemeOptions>(options: T): Theme {
+export default function createTheme<T extends Styles.ThemeOptions>(options: T): Styles.Theme {
   return initTheme<T>(options);
 }

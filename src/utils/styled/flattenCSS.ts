@@ -1,28 +1,28 @@
 import { toLine, isObject, isEmpty, isNumber } from "../helper";
 import numericalCSS from "../../constants/numericalCSS";
-import type { InitialObject } from "../../types/index.types";
+import type * as Styles from "../../types/index.types"
 
-function flattenCSS<T = InitialObject>(CSSOptions: T, stylesCreatorOptions: InitialObject): string[] {
+function flattenCSS(CSSOptions: Styles.InitialObject, stylesCreatorOptions: Styles.InitialObject): string[] {
   const CSSChunk: string[] = [];
   const { unit, numericalCSS: numericalCss } = stylesCreatorOptions
 
-  for (const key in CSSOptions) {
-    if (isEmpty(CSSOptions[key])) {
+  for (const [key, value] of Object.entries(CSSOptions)) {
+    if (isEmpty(value)) {
       continue;
     }
 
-    if (isObject(CSSOptions[key])) {
-      CSSChunk.push(`${key} {`, ...flattenCSS(CSSOptions[key], stylesCreatorOptions), "}");
-    } else if (isNumber(CSSOptions[key])) {
+    if (isObject(value)) {
+      CSSChunk.push(`${key} {`, ...flattenCSS(value, stylesCreatorOptions), "}");
+    } else if (isNumber(value)) {
       const CSSNumerical = numericalCss ? [...new Set([...numericalCSS, ...numericalCss])] : numericalCSS
 
       if (CSSNumerical.includes(key)) {
-        CSSChunk.push(`${toLine(key)}: ${CSSOptions[key]};`)
+        CSSChunk.push(`${toLine(key)}: ${value};`)
       } else {
-        CSSChunk.push(`${toLine(key)}: ${CSSOptions[key]}${unit};`)
+        CSSChunk.push(`${toLine(key)}: ${value}${unit};`)
       }
     } else {
-      CSSChunk.push(`${toLine(key)}: ${CSSOptions[key]};`);
+      CSSChunk.push(`${toLine(key)}: ${value};`);
     }
   }
 

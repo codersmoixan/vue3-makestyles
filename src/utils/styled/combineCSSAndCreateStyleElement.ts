@@ -2,26 +2,26 @@ import generateCSS from "./generateCSS";
 import generateStyleElement from "./generateStyleElement";
 import generateClassName from "./generateClassName";
 import { isEmpty } from "../helper";
-import type { InitialObject } from "../../types/index.types";
+import type * as Styles from "../../types/index.types"
 
 export interface CreateCSS {
-  classes: InitialObject<string>;
+  classes: Styles.InitialObject<string>;
   styleEleName: string | null;
 }
 
-function combineCSSAndCreateStyleElement(styles: InitialObject): { create: (stylesCreatorOptions: InitialObject) => CreateCSS }  {
+function combineCSSAndCreateStyleElement(styles: Styles.InitialObject): { create: (stylesCreatorOptions: Styles.InitialObject) => CreateCSS }  {
 
   return {
-    create: (stylesCreatorOptions: InitialObject) : CreateCSS => {
-      const classes: InitialObject<string> = {};
+    create: (stylesCreatorOptions: Styles.InitialObject) : CreateCSS => {
+      const classes: Styles.InitialObject<string> = {};
       let stringifyCSS = "";
 
-      for (const key in styles) {
-        if (isEmpty(styles[key])) {
+      for (const [key, value] of Object.entries(styles)) {
+        if (isEmpty(value)) {
           continue;
         }
 
-        const { selector, css } = generateCSS(styles[key], stylesCreatorOptions, key);
+        const { selector, css } = generateCSS(value, stylesCreatorOptions, key);
 
         classes[key] = selector;
         stringifyCSS += css;

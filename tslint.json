@@ -76,7 +76,7 @@
     "no-return-await": true, // 禁止不必要的 return await
 
     // 维护性功能
-    "indent":[true, "spaces", 4],// 每行开始以4个空格符开始
+    "indent":[true, "spaces", 2],// 每行开始以4个空格符开始
     "max-classes-per-file":[true,1],// 每个文件中可定义类的个数
     "max-file-line-count":[true,1000],// 定义每个文件代码行数
     "max-line-length":[true,300],// 定义每行代码数

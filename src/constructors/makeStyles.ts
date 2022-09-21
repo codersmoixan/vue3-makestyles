@@ -1,20 +1,14 @@
-import {
-  onUnmounted,
-  reactive,
-  ref,
-  watchEffect,
-} from "vue";
+import * as Vue from "vue";
 import useTheme from "../hooks/useTheme";
-import { forIn, isEmpty } from "../utils/helper"
+import { forOf, isEmpty } from "../utils/helper"
 import combineCSSAndCreateStyleElement from "../utils/styled/combineCSSAndCreateStyleElement";
 import combinePropsClassNames from "../utils/styled/combinePropsClassNames";
 import deleteCSSAndStyleElement from "../utils/styled/deleteCSSAndStyleElement";
 import getStylesCreator from "./getStylesCreator/getStylesCreator";
 import emptyTheme from "../constants/emptyTheme";
-import type { InitialObject } from "../types/index.types";
-import type { MakeStylesOptions, StyleOrCreator, EffectOptions } from "./types/index.types"
+import type * as Styles from "../types/index.types";
 
-const effectClasses = (options: EffectOptions, props: InitialObject = {}) => {
+const effectClasses = (options: Styles.EffectOptions, props: Styles.InitialObject = {}) => {
   const { theme, name,  stylesCreator, classNames, styleEleName } = options
 
   const styles = stylesCreator.create(theme, props, name);
@@ -32,12 +26,12 @@ const effectClasses = (options: EffectOptions, props: InitialObject = {}) => {
 
   styleEleName.value = css.styleEleName;
 
-  forIn(classNames, combineClasses)
+  forOf(classNames, combineClasses)
 };
 
 function makeStyles(
-  stylesOrCreator: StyleOrCreator,
-  options: MakeStylesOptions = {}
+  stylesOrCreator: Styles.StyleOrCreator,
+  options: Styles.MakeStylesOptions = {}
 ) {
   const {
     name = '',
@@ -57,10 +51,10 @@ function makeStyles(
     stylesCreator.options.unit = theme.themeUnit?.unit ?? 'px'
     stylesCreator.options.numericalCSS = theme.numericalCSS
 
-    const styleEleName = ref<string | null>("");
-    const classNames = reactive<InitialObject>({});
+    const styleEleName = Vue.ref<string | null>("");
+    const classNames = Vue.reactive<Styles.InitialObject>({});
 
-    watchEffect(() => {
+    Vue.watchEffect(() => {
       const current = {
         name,
         classNamePrefix,
@@ -73,7 +67,7 @@ function makeStyles(
       effectClasses(current, props);
     });
 
-    onUnmounted(() => {
+    Vue.onUnmounted(() => {
       const combineClassNamesValue = Object.values(classNames);
       deleteCSSAndStyleElement(
         `.${combineClassNamesValue?.[0]}`,

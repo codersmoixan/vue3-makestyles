@@ -1,4 +1,4 @@
-import type { InitialObject } from "./index.types";
+import type { InitialObject } from "./theme.types";
 
 export type MixinsKey = "toolbar" | string | object;
 
