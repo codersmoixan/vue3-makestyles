@@ -9,10 +9,10 @@ export interface CreateCSS {
   styleEleName: string | null;
 }
 
-function combineCSSAndCreateStyleElement(styles: Styles.InitialObject): { create: (stylesCreatorOptions: Styles.InitialObject) => CreateCSS }  {
+function combinedCSSAndCreateStyleElement(styles: Styles.InitialObject): { create: (stylesCreatorOptions: Styles.InitialObject) => CreateCSS }  {
 
   return {
-    create: (stylesCreatorOptions: Styles.InitialObject) : CreateCSS => {
+    create: (stylesCreatorOptions: Styles.MakeStylesOptions) : CreateCSS => {
       const classes: Styles.InitialObject<string> = {};
       let stringifyCSS = "";
 
@@ -39,4 +39,4 @@ function combineCSSAndCreateStyleElement(styles: Styles.InitialObject): { create
   }
 }
 
-export default combineCSSAndCreateStyleElement;
+export default combinedCSSAndCreateStyleElement;

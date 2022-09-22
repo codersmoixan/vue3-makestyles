@@ -17,5 +17,6 @@ export interface EffectOptions {
 export interface MakeStylesOptions extends Styles.InitialObject{
   name?: string
   classNamePrefix?: string,
-  defaultTheme?: Styles.InitialObject
+  defaultTheme?: Styles.InitialObject,
+  isHashClassName?: boolean
 }

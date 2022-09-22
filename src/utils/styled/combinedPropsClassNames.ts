@@ -1,7 +1,7 @@
 import { isEmpty } from "../helper";
 import type * as Styles from "../../types/index.types";
 
-function combinePropsClassNames(
+function combinedPropsClassNames(
   makeClassNames: Styles.InitialObject<string>,
   propsClassNames: Styles.InitialObject<string> = {}
 ): Styles.InitialObject<string> {
@@ -9,18 +9,18 @@ function combinePropsClassNames(
     return makeClassNames;
   }
 
-  const combineClassNames: Styles.InitialObject<string> = Object.assign(
+  const combinedClassNames: Styles.InitialObject<string> = Object.assign(
     {},
     makeClassNames
   );
 
   for (const [key, value] of Object.entries(propsClassNames)) {
-    if (combineClassNames[key]) {
-      combineClassNames[key] = combineClassNames[key] += ` ${value}`;
+    if (combinedClassNames[key]) {
+      combinedClassNames[key] = combinedClassNames[key] += ` ${value}`;
     }
   }
 
-  return combineClassNames;
+  return combinedClassNames;
 }
 
-export default combinePropsClassNames;
+export default combinedPropsClassNames;

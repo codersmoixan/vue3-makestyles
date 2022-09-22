@@ -30,9 +30,9 @@ export const isString = (value: any): boolean => typeof value === 'string'
 
 export const isNumber = (value: any): boolean => typeof value === 'number'
 
-export const forOf = (target: Record<string, any>, source: Record<string, any>) => {
+export const forOf = (target: Record<string, any>, source: Record<string, any>, callback: (key: string, value: any) => boolean = ((key, value) => key && value)) => {
   for (const [key, value] of Object.entries(source)) {
-    if (key && value) {
+    if (callback(key, value)) {
       target[key] = value;
     }
   }

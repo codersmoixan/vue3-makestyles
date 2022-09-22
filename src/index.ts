@@ -17,6 +17,9 @@ export { default as Hidden } from "./components/Hidden"
 export { default as ThemeProvider } from "./components/Theme/ThemeProvider"
 
 export { default as styled } from "./constructors/styled"
+
+export * as Styles from "./types/index.types"
+
 import makeStyles from "./constructors/makeStyles";
 
 export default makeStyles
