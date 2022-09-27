@@ -18,10 +18,13 @@
     "build:types": "npx tsc"
   },
   "keywords": [
+    "vue",
     "vue3",
     "css",
     "css-in-js",
-    "styling"
+    "styled",
+    "styled-components",
+    "vue-styled-components"
   ],
   "files": [
     "/dist"

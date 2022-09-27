@@ -1,4 +1,4 @@
-# vue3-makeStyles
+# vue3-makestyles
 Allows you to write CSS in the form of writing js object.
 <br />
 The api implementation draws on <a href="https://github.com/mui/material-ui/blob/master/packages/mui-styles/src/makeStyles/makeStyles.js">mui</a>，Some tool functions are borrowed from <a href="https://github.com/UX-and-I/vue3-styled-components">vue3-styled-components</a>.
@@ -39,7 +39,7 @@ You can write makeStyles like you would normally write less/scss
 ```JS
   // ...
  
-  const useStyles = makestyles({
+  const useStyles = makeStyles({
     container: {
       // ...
       "&.active": {
