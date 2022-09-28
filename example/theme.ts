@@ -1,3 +1,5 @@
+// @ts-ignore
+// tslint:disable-next-line:no-implicit-dependencies
 import { createBreakpoints, createTheme } from "vue3-makestyles";
 
 export const initialBreakpoints = {
@@ -10,7 +12,7 @@ export const initialBreakpoints = {
   },
 };
 
-export const breakpoints = createBreakpoints(initialBreakpoints);
+export const breakpoints = createBreakpoints(initialBreakpoints); // 初始化断点阙值
 
 export const Primary = "#090909";
 export const Secondary = "#808080";
@@ -52,12 +54,12 @@ export const compatibleBottomBarHeight = (h = 72) =>
   `calc(${h}px + ${safaBottomBarHeight})`;
 
 export default createTheme({
-  breakpoints: breakpoints,
+  breakpoints, // 媒体查询断点
   themeUnit: {
-    step: 8,
-    unit: "px",
+    step: 8, // theme.spacing(1) 1 = 8
+    unit: "px", // css值单位， { width: 100, height: 100 } = { width: '100px', height: '100px' }
   },
-  palette: {
+  palette: { // 调色板
     primary: {
       main: FitLineBrandColorRed,
       white: White,
@@ -193,7 +195,7 @@ export default createTheme({
       lineHeight: 1.147,
     },
   },
-  mixins: {
+  mixins: { // 通用
     toolbar: {
       minHeight: 48,
       appBarHeight: 64,
@@ -206,4 +208,5 @@ export default createTheme({
   shape: {
     borderRadius: 8,
   },
+  css: {} // 定义全局样式 覆盖组件样式
 });
