@@ -1,6 +1,6 @@
 {
   "name": "vue3-makestyles",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Allows you to write CSS in the form of writing js object, Applicable to vue3",
   "main": "dist/vue-makestyles.cjs.js",
   "jsnext:main": "dist/vue-makestyles.esm.js",
@@ -20,8 +20,10 @@
   "keywords": [
     "vue",
     "vue3",
+    "stylis",
     "css",
     "css-in-js",
+    "vue-css-in-js",
     "styled",
     "styled-components",
     "vue-styled-components"
@@ -59,9 +61,7 @@
     "prettier": "^2.7.1",
     "rollup": "^2.79.0",
     "rollup-plugin-babel": "^4.4.0",
-    "rollup-plugin-buble": "^0.19.8",
     "rollup-plugin-commonjs": "^10.1.0",
-    "rollup-plugin-dts": "^4.2.2",
     "rollup-plugin-inject": "^3.0.2",
     "rollup-plugin-json": "^4.0.0",
     "rollup-plugin-node-builtins": "^2.1.2",

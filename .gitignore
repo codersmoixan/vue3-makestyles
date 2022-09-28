@@ -8,6 +8,7 @@ yarn.lock
 .idea
 .bitmap
 .rollup.cache
+bundle-stats.html
 
 \.npmrc
 
