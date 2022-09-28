@@ -1,8 +1,8 @@
-import { defineComponent } from "vue";
+import * as Vue from "vue";
 import useVisible from "../../hooks/useVisible";
 import { isUndefined } from "../../utils/helper";
 
-export default defineComponent({
+export default Vue.defineComponent({
   props: {
     xlUp: Boolean,
     xlDown: Boolean,

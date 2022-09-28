@@ -6,7 +6,7 @@ type CreateStyledComponent = (styles: Styles.StyleOrCreator, options: Styles.Mak
 
 interface StyledProps { [key: string]: Vue.Prop<unknown> }
 
-function styled<Props = StyledProps>(component: any, propDefinitions: Vue.ExtractPropTypes<StyledProps> = {a: Boolean}) {
+function styled(component: any, propDefinitions: Vue.ExtractPropTypes<StyledProps> = {}) {
   const componentProps = component.props as Vue.ExtractPropTypes<StyledProps>
   const name = component.name
 
