@@ -1,52 +1,190 @@
-import type { ShapeOptions, Shape } from "./shape.types";
-import type { BreakpointsOptions, Breakpoints } from "./breakpoints.types";
-import type { MixinsOptions, Mixins } from "./mixins.types";
-import type { Shadows } from "./shadows.types";
-import type { ZIndexOptions, ZIndex } from "./zIndex.types";
-import type {
-  TransitionsOptions,
-  Transitions,
-} from "./transitions.types";
-import type { Spacing } from "./spacing.types";
-import type { PaletteOptions } from "./palette.types";
-import type { TypographyOptions } from "./typography.types";
-import {ThemeUnitOptions} from "./themeUnit.types";
+import * as Vue from "vue"
 
-export type ObjectType<V = any> = Record<string, V>;
+export * from "./themeUnit.types"
+export * from "./spacing.types"
+export * from "./shape.types"
+export * from "./theme.types"
+export * from "./mixins.types"
+export * from "./generateCSS.type"
+export * from "./breakpoints.types"
+export * from "./hidden.types"
+export * from "./typography.types"
+export * from "./constructors.types"
 
-export type Direction = "ltr" | "rtl";
+export interface IntrinsicElementAttributes {
+  a: Vue.AnchorHTMLAttributes
+  abbr: Vue.HTMLAttributes
+  address: Vue.HTMLAttributes
+  area: Vue.AreaHTMLAttributes
+  article: Vue.HTMLAttributes
+  aside: Vue.HTMLAttributes
+  audio: Vue.AudioHTMLAttributes
+  b: Vue.HTMLAttributes
+  base: Vue.BaseHTMLAttributes
+  bdi: Vue.HTMLAttributes
+  bdo: Vue.HTMLAttributes
+  blockquote: Vue.BlockquoteHTMLAttributes
+  body: Vue.HTMLAttributes
+  br: Vue.HTMLAttributes
+  button: Vue.ButtonHTMLAttributes
+  canvas: Vue.CanvasHTMLAttributes
+  caption: Vue.HTMLAttributes
+  cite: Vue.HTMLAttributes
+  code: Vue.HTMLAttributes
+  col: Vue.ColHTMLAttributes
+  colgroup: Vue.ColgroupHTMLAttributes
+  data: Vue.DataHTMLAttributes
+  datalist: Vue.HTMLAttributes
+  dd: Vue.HTMLAttributes
+  del: Vue.DelHTMLAttributes
+  details: Vue.DetailsHTMLAttributes
+  dfn: Vue.HTMLAttributes
+  dialog: Vue.DialogHTMLAttributes
+  div: Vue.HTMLAttributes
+  dl: Vue.HTMLAttributes
+  dt: Vue.HTMLAttributes
+  em: Vue.HTMLAttributes
+  embed: Vue.EmbedHTMLAttributes
+  fieldset: Vue.FieldsetHTMLAttributes
+  figcaption: Vue.HTMLAttributes
+  figure: Vue.HTMLAttributes
+  footer: Vue.HTMLAttributes
+  form: Vue.FormHTMLAttributes
+  h1: Vue.HTMLAttributes
+  h2: Vue.HTMLAttributes
+  h3: Vue.HTMLAttributes
+  h4: Vue.HTMLAttributes
+  h5: Vue.HTMLAttributes
+  h6: Vue.HTMLAttributes
+  head: Vue.HTMLAttributes
+  header: Vue.HTMLAttributes
+  hgroup: Vue.HTMLAttributes
+  hr: Vue.HTMLAttributes
+  html: Vue.HtmlHTMLAttributes
+  i: Vue.HTMLAttributes
+  iframe: Vue.IframeHTMLAttributes
+  img: Vue.ImgHTMLAttributes
+  input: Vue.InputHTMLAttributes
+  ins: Vue.InsHTMLAttributes
+  kbd: Vue.HTMLAttributes
+  keygen: Vue.KeygenHTMLAttributes
+  label: Vue.LabelHTMLAttributes
+  legend: Vue.HTMLAttributes
+  li: Vue.LiHTMLAttributes
+  link: Vue.LinkHTMLAttributes
+  main: Vue.HTMLAttributes
+  map: Vue.MapHTMLAttributes
+  mark: Vue.HTMLAttributes
+  menu: Vue.MenuHTMLAttributes
+  meta: Vue.MetaHTMLAttributes
+  meter: Vue.MeterHTMLAttributes
+  nav: Vue.HTMLAttributes
+  noindex: Vue.HTMLAttributes
+  noscript: Vue.HTMLAttributes
+  object: Vue.ObjectHTMLAttributes
+  ol: Vue.OlHTMLAttributes
+  optgroup: Vue.OptgroupHTMLAttributes
+  option: Vue.OptionHTMLAttributes
+  output: Vue.OutputHTMLAttributes
+  p: Vue.HTMLAttributes
+  param: Vue.ParamHTMLAttributes
+  picture: Vue.HTMLAttributes
+  pre: Vue.HTMLAttributes
+  progress: Vue.ProgressHTMLAttributes
+  q: Vue.QuoteHTMLAttributes
+  rp: Vue.HTMLAttributes
+  rt: Vue.HTMLAttributes
+  ruby: Vue.HTMLAttributes
+  s: Vue.HTMLAttributes
+  samp: Vue.HTMLAttributes
+  script: Vue.ScriptHTMLAttributes
+  section: Vue.HTMLAttributes
+  select: Vue.SelectHTMLAttributes
+  small: Vue.HTMLAttributes
+  source: Vue.SourceHTMLAttributes
+  span: Vue.HTMLAttributes
+  strong: Vue.HTMLAttributes
+  style: Vue.StyleHTMLAttributes
+  sub: Vue.HTMLAttributes
+  summary: Vue.HTMLAttributes
+  sup: Vue.HTMLAttributes
+  table: Vue.TableHTMLAttributes
+  template: Vue.HTMLAttributes
+  tbody: Vue.HTMLAttributes
+  td: Vue.TdHTMLAttributes
+  textarea: Vue.TextareaHTMLAttributes
+  tfoot: Vue.HTMLAttributes
+  th: Vue.ThHTMLAttributes
+  thead: Vue.HTMLAttributes
+  time: Vue.TimeHTMLAttributes
+  title: Vue.HTMLAttributes
+  tr: Vue.HTMLAttributes
+  track: Vue.TrackHTMLAttributes
+  u: Vue.HTMLAttributes
+  ul: Vue.HTMLAttributes
+  var: Vue.HTMLAttributes
+  video: Vue.VideoHTMLAttributes
+  wbr: Vue.HTMLAttributes
+  webview: Vue.WebViewHTMLAttributes
 
-export type CSSOptions = ObjectType;
+  // SVG
+  svg: Vue.SVGAttributes
 
-export interface ThemeOptions {
-  shape?: ShapeOptions;
-  breakpoints?: BreakpointsOptions;
-  direction?: Direction;
-  mixins?: MixinsOptions;
-  palette?: PaletteOptions;
-  shadows?: Shadows;
-  spacing?: Spacing;
-  themeUnit?: ThemeUnitOptions;
-  transitions?: TransitionsOptions;
-  typography?: TypographyOptions;
-  css?: CSSOptions;
-  zIndex?: ZIndexOptions;
-  unstable_strictMode?: boolean;
-  numericalCSS?: string[]
-}
-
-export interface Theme extends ObjectType{
-  breakpoints: Breakpoints;
-  palette?: PaletteOptions;
-  shape?: Shape;
-  direction?: Direction;
-  mixins?: Mixins;
-  shadows?: Shadows;
-  spacing: Spacing;
-  themeUnit?: ThemeUnitOptions;
-  transitions?: Transitions;
-  typography?: TypographyOptions;
-  css?: CSSOptions;
-  zIndex?: ZIndex;
-  unstable_strictMode?: boolean;
+  animate: Vue.SVGAttributes
+  animateMotion: Vue.SVGAttributes
+  animateTransform: Vue.SVGAttributes
+  circle: Vue.SVGAttributes
+  clipPath: Vue.SVGAttributes
+  defs: Vue.SVGAttributes
+  desc: Vue.SVGAttributes
+  ellipse: Vue.SVGAttributes
+  feBlend: Vue.SVGAttributes
+  feColorMatrix: Vue.SVGAttributes
+  feComponentTransfer: Vue.SVGAttributes
+  feComposite: Vue.SVGAttributes
+  feConvolveMatrix: Vue.SVGAttributes
+  feDiffuseLighting: Vue.SVGAttributes
+  feDisplacementMap: Vue.SVGAttributes
+  feDistantLight: Vue.SVGAttributes
+  feDropShadow: Vue.SVGAttributes
+  feFlood: Vue.SVGAttributes
+  feFuncA: Vue.SVGAttributes
+  feFuncB: Vue.SVGAttributes
+  feFuncG: Vue.SVGAttributes
+  feFuncR: Vue.SVGAttributes
+  feGaussianBlur: Vue.SVGAttributes
+  feImage: Vue.SVGAttributes
+  feMerge: Vue.SVGAttributes
+  feMergeNode: Vue.SVGAttributes
+  feMorphology: Vue.SVGAttributes
+  feOffset: Vue.SVGAttributes
+  fePointLight: Vue.SVGAttributes
+  feSpecularLighting: Vue.SVGAttributes
+  feSpotLight: Vue.SVGAttributes
+  feTile: Vue.SVGAttributes
+  feTurbulence: Vue.SVGAttributes
+  filter: Vue.SVGAttributes
+  foreignObject: Vue.SVGAttributes
+  g: Vue.SVGAttributes
+  image: Vue.SVGAttributes
+  line: Vue.SVGAttributes
+  linearGradient: Vue.SVGAttributes
+  marker: Vue.SVGAttributes
+  mask: Vue.SVGAttributes
+  metadata: Vue.SVGAttributes
+  mpath: Vue.SVGAttributes
+  path: Vue.SVGAttributes
+  pattern: Vue.SVGAttributes
+  polygon: Vue.SVGAttributes
+  polyline: Vue.SVGAttributes
+  radialGradient: Vue.SVGAttributes
+  rect: Vue.SVGAttributes
+  stop: Vue.SVGAttributes
+  switch: Vue.SVGAttributes
+  symbol: Vue.SVGAttributes
+  text: Vue.SVGAttributes
+  textPath: Vue.SVGAttributes
+  tspan: Vue.SVGAttributes
+  use: Vue.SVGAttributes
+  view: Vue.SVGAttributes
 }

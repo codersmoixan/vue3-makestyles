@@ -2,26 +2,32 @@ import flattenCSS from "./flattenCSS";
 import stringifyCSS from "./stringifyCSS";
 import stylis from "stylis";
 import generateClassName from "./generateClassName";
-import {isUndefined} from "../helper";
-import type { ObjectType } from "../../types/index.types";
-import type { GeneratedCSS } from "../../types/generateCSS.type";
+import { isUndefined } from "../helper";
+import type * as Styles from "../../types/index.types"
 
-function generateCSS<T = ObjectType>(
-  options: T,
-  stylesCreatorOptions: ObjectType,
-  className?: string
-): GeneratedCSS {
-  const { classNamePrefix } = stylesCreatorOptions
-
-  const flatCSS = flattenCSS<T>(options, stylesCreatorOptions);
-
-  const stringCSS = stringifyCSS(flatCSS);
+function createClassName({stringCSS, className = '', stylesCreatorOptions}: { stringCSS: string, stylesCreatorOptions: Styles.MakeStylesOptions, className?: string }): string {
+  const { classNamePrefix, isHashClassName } = stylesCreatorOptions
   const selector = generateClassName(stringCSS);
+  const isInClassName = isUndefined(className)
 
-  const selectorName = isUndefined(className)
+  if (isHashClassName) {
+    return isInClassName ? `${classNamePrefix}-${selector}` : `${classNamePrefix}-${className}__${selector}`;
+  }
+
+  return  isUndefined(className)
     ? `${classNamePrefix}-${selector}`
-    : `${classNamePrefix}-${className}__${selector}`;
+    : `${classNamePrefix}-${className}`;
+}
 
+function generateCSS(
+  options: Styles.InitialObject,
+  stylesCreatorOptions: Styles.MakeStylesOptions,
+  className?: string
+): Styles.GeneratedCSS {
+  const flatCSS = flattenCSS(options, stylesCreatorOptions);
+  const stringCSS = stringifyCSS(flatCSS);
+
+  const selectorName = createClassName({ stringCSS, stylesCreatorOptions, className })
   const css = stylis(`.${selectorName}`, stringCSS);
 
   return {

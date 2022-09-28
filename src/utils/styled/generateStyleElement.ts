@@ -1,11 +1,11 @@
-import type { Ref } from "vue";
+import * as Vue from "vue";
 import getStyleElement from "./getStyleElement";
 
 function generateStyleElement(
   css: string,
   dataMeta: string,
   className?: string,
-  element?: Ref
+  element?: Vue.Ref
 ): string | null {
   const styleEle = getStyleElement(dataMeta)
   const cssText = document.createTextNode(css);

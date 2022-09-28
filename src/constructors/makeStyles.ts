@@ -1,21 +1,14 @@
-import {
-  onUnmounted,
-  reactive,
-  ref,
-  watchEffect,
-} from "vue";
+import * as Vue from "vue";
 import useTheme from "../hooks/useTheme";
-import { isEmpty } from "../utils/helper"
-import combineCSSAndCreateStyleElement from "../utils/styled/combineCSSAndCreateStyleElement";
-import combinePropsClassNames from "../utils/styled/combinePropsClassNames";
+import { forOf, isEmpty } from "../utils/helper"
+import combinedCSSAndCreateStyleElement from "../utils/styled/combinedCSSAndCreateStyleElement";
+import combinedPropsClassNames from "../utils/styled/combinedPropsClassNames";
 import deleteCSSAndStyleElement from "../utils/styled/deleteCSSAndStyleElement";
 import getStylesCreator from "./getStylesCreator/getStylesCreator";
 import emptyTheme from "../constants/emptyTheme";
-import type { ObjectType } from "../types/index.types";
-import type { MakeStylesOptions, StyleOrCreator } from "./types/index.types"
-import type { EffectOptions } from "./types/index.types";
+import type * as Styles from "../types/index.types";
 
-const effectClasses = (options: EffectOptions, props: ObjectType = {}) => {
+const effectClasses = (options: Styles.EffectOptions, props: Vue.ExtractPropTypes<Styles.InitialObject> = {}) => {
   const { theme, name,  stylesCreator, classNames, styleEleName } = options
 
   const styles = stylesCreator.create(theme, props, name);
@@ -24,48 +17,48 @@ const effectClasses = (options: EffectOptions, props: ObjectType = {}) => {
     return;
   }
 
-  const combineCSS = combineCSSAndCreateStyleElement(styles);
-  const css = combineCSS.create(stylesCreator.options)
-  const combineClasses = combinePropsClassNames(
+  const combinedCSS = combinedCSSAndCreateStyleElement(styles);
+  const css = combinedCSS.create(stylesCreator.options)
+  const combinedClasses = combinedPropsClassNames(
     css.classes,
     props.classes
   );
 
   styleEleName.value = css.styleEleName;
 
-  for (const key in combineClasses) {
-    classNames[key] = combineClasses[key];
-  }
+  forOf(classNames, combinedClasses)
 };
 
 function makeStyles(
-  stylesOrCreator: StyleOrCreator,
-  options: MakeStylesOptions = {}
+  stylesOrCreator: Styles.StyleOrCreator,
+  options: Styles.MakeStylesOptions = {}
 ) {
   const {
-    componentName = '',
+    name = '',
     classNamePrefix: classNamePrefixOption,
-    defaultTheme = emptyTheme
+    defaultTheme = emptyTheme,
+    isHashClassName = true
   } = options
   const stylesCreator = getStylesCreator(stylesOrCreator);
-  const classNamePrefix = classNamePrefixOption || componentName || 'makeStyles';
+  const classNamePrefix = classNamePrefixOption || name || 'makeStyles';
   stylesCreator.options = {
-    name: componentName,
+    name,
     meta: classNamePrefix,
     classNamePrefix,
+    isHashClassName
   }
 
-  const useStyles = (props: object = {}) => {
+  const useStyles = (props: Vue.ExtractPropTypes<Styles.InitialObject> = {}) => {
     const theme = useTheme() || defaultTheme;
     stylesCreator.options.unit = theme.themeUnit?.unit ?? 'px'
     stylesCreator.options.numericalCSS = theme.numericalCSS
 
-    const styleEleName = ref<string | null>("");
-    const classNames = reactive<ObjectType>({});
+    const styleEleName = Vue.ref<string | null>("");
+    const classNames = Vue.reactive<Styles.InitialObject>({});
 
-    watchEffect(() => {
+    Vue.watchEffect(() => {
       const current = {
-        name: componentName,
+        name,
         classNamePrefix,
         theme,
         stylesCreator,
@@ -76,12 +69,10 @@ function makeStyles(
       effectClasses(current, props);
     });
 
-    onUnmounted(() => {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      const combineClassNamesValue = Object.values(classNames);
+    Vue.onUnmounted(() => {
+      const combinedClassNamesValue = Object.values(classNames);
       deleteCSSAndStyleElement(
-        `.${combineClassNamesValue?.[0]}`,
+        `.${combinedClassNamesValue?.[0]}`,
         styleEleName.value
       );
     });

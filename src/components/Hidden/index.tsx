@@ -1,39 +1,19 @@
-import { defineComponent } from "vue";
+import * as Vue from "vue";
 import useVisible from "../../hooks/useVisible";
-import {isEmpty, isUndefined} from "../../utils/helper";
+import { isUndefined } from "../../utils/helper";
 
-export default defineComponent({
+export default Vue.defineComponent({
   props: {
-    xlUp: {
-      type: Boolean,
-    },
-    xlDown: {
-      type: Boolean,
-    },
-    lgUp: {
-      type: Boolean,
-    },
-    lgDown: {
-      type: Boolean,
-    },
-    mdUp: {
-      type: Boolean,
-    },
-    mdDown: {
-      type: Boolean,
-    },
-    smUp: {
-      type: Boolean,
-    },
-    smDown: {
-      type: Boolean,
-    },
-    xsUp: {
-      type: Boolean,
-    },
-    xsDown: {
-      type: Boolean,
-    },
+    xlUp: Boolean,
+    xlDown: Boolean,
+    lgUp: Boolean,
+    lgDown: Boolean,
+    mdUp: Boolean,
+    mdDown: Boolean,
+    smUp: Boolean,
+    smDown: Boolean,
+    xsUp: Boolean,
+    xsDown: Boolean,
   },
   setup(props, { slots }) {
     if (isUndefined(slots.default)) {

@@ -1,4 +1,4 @@
-import {isEmpty} from "../helper";
+import { isEmpty } from "../helper";
 
 export default function getStyleElement(meta: string): any {
   const styleElements = document.getElementsByTagName("styles")

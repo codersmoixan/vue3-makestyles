@@ -10,6 +10,9 @@ module.exports = {
     "ecmaVersion": "latest"
   },
   "rules": {
-    "vue/multi-word-component-names": 'off'
+    "prettier/prettier": ['error'],
+    "vue/multi-word-component-names": "off",
+    "arrow-body-style": [2, 'as-needed'],
+    "no-console": 1,
   }
 }

@@ -2,26 +2,26 @@ import generateCSS from "./generateCSS";
 import generateStyleElement from "./generateStyleElement";
 import generateClassName from "./generateClassName";
 import { isEmpty } from "../helper";
-import type { ObjectType } from "../../types/index.types";
+import type * as Styles from "../../types/index.types"
 
 export interface CreateCSS {
-  classes: ObjectType<string>;
+  classes: Styles.InitialObject<string>;
   styleEleName: string | null;
 }
 
-function combineCSSAndCreateStyleElement(styles: ObjectType): { create: (stylesCreatorOptions: ObjectType) => CreateCSS }  {
+function combinedCSSAndCreateStyleElement(styles: Styles.InitialObject): { create: (stylesCreatorOptions: Styles.InitialObject) => CreateCSS }  {
 
   return {
-    create: (stylesCreatorOptions: ObjectType) : CreateCSS => {
-      const classes: ObjectType<string> = {};
+    create: (stylesCreatorOptions: Styles.MakeStylesOptions) : CreateCSS => {
+      const classes: Styles.InitialObject<string> = {};
       let stringifyCSS = "";
 
-      for (const key in styles) {
-        if (isEmpty(styles[key])) {
+      for (const [key, value] of Object.entries(styles)) {
+        if (isEmpty(value)) {
           continue;
         }
 
-        const { selector, css } = generateCSS(styles[key], stylesCreatorOptions, key);
+        const { selector, css } = generateCSS(value, stylesCreatorOptions, key);
 
         classes[key] = selector;
         stringifyCSS += css;
@@ -39,4 +39,4 @@ function combineCSSAndCreateStyleElement(styles: ObjectType): { create: (stylesC
   }
 }
 
-export default combineCSSAndCreateStyleElement;
+export default combinedCSSAndCreateStyleElement;

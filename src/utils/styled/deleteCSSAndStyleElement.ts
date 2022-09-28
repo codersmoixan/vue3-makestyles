@@ -1,7 +1,7 @@
 type EleName = string | null;
 
 function deleteCSSAndStyleElement(eleName: EleName, styleEleName: EleName) {
-  if (!eleName || !styleEleName) return;
+  if (!eleName || !styleEleName) { return; }
 
   const ele = document.querySelector(eleName);
 

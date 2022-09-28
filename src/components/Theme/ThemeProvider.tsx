@@ -1,8 +1,8 @@
-import { defineComponent, provide, toRefs } from "vue";
+import * as Vue from "vue";
 import type { PropType } from "vue";
-import type { Theme } from "../../types/index.types";
+import type { Theme } from "../../types/theme.types";
 
-export default defineComponent({
+export default Vue.defineComponent({
   name: "ThemeProvider",
   props: {
     theme: {
@@ -10,7 +10,7 @@ export default defineComponent({
     },
   },
   setup(props, { slots }) {
-    provide("theme", props.theme);
+    Vue.provide("theme", props.theme);
 
     return () => slots.default && slots.default(props.theme);
   },

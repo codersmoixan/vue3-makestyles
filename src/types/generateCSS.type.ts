@@ -1,5 +1,5 @@
-import type { Ref } from "vue";
-import type { Theme } from "./index.types";
+import * as Vue from "vue";
+import type { Theme } from "./theme.types";
 
 export interface GeneratedCSS {
   css: string;
@@ -10,5 +10,5 @@ export interface GenerateThemeParam {
   classNamePrefix: string
   theme: Theme
   variant: string
-  element?: Ref
+  element?: Vue.Ref
 }

@@ -1,4 +1,4 @@
-# vue3-makeStyles
+# vue3-makestyles
 允许您以编写 js 对象的形式编写 CSS。
 <br />
 api实现借鉴了 <a href="https://github.com/mui/material-ui/blob/master/packages/mui-styles/src/makeStyles/makeStyles.js">mui</a>，部分工具函数借鉴了 <a href="https://github.com/UX-and-I/vue3-styled-components">vue3-styled-components</a>。
@@ -39,7 +39,7 @@ $ yarn add vue3-makestyles
 ```JS
   // ...
  
-  const useStyles = makestyles({
+  const useStyles = makeStyles({
     container: {
       // ...
       "&.active": {
@@ -232,10 +232,10 @@ $ yarn add vue3-makestyles
   const useStyles = makestyles({
     // ...
   }, {
-    componentName: 'TestComponent' // This name is customizable
+    name: 'TestComponent' // This name is customizable
   })
 ```
-你可以在你的 <a href="https://github.com/codersmoixan/vue3-makestyles/blob/master/example/theme.js">theme.js</a> 文件中统一配置你的css常用样式，并在`makeStyles`函数中与你在`componentName`中定义的名称绑定。
+你可以在你的 <a href="https://github.com/codersmoixan/vue3-makestyles/blob/master/example/theme.js">theme.js</a> 文件中统一配置你的css常用样式，并在`makeStyles`函数中与你在`name`中定义的名称绑定。
 ```JS
   export default createTheme({
     // ...

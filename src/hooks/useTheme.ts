@@ -1,16 +1,16 @@
-import createBreakpoints from "../constructors/createBreakpoints";
-import { inject } from "vue";
-import {isEmpty} from "../utils/helper";
-import type { Theme } from "../types/index.types";
+import * as Vue from "vue";
+import { isEmpty } from "../utils/helper";
+import initTheme from "../utils/theme/initTheme";
+import type * as Styles from "../types/index.types";
 
-const useTheme = (): Theme => {
-  const theme = inject<Theme>("theme");
+const useTheme = (): (Styles.Theme) => {
+  const theme = Vue.inject<Styles.Theme>("theme");
 
-  return isEmpty(theme)
-    ? {
-        breakpoints: createBreakpoints(),
-      }
-    : (theme as any);
+  if (isEmpty(theme) || typeof theme === "undefined") {
+    return initTheme({})
+  }
+
+  return theme
 };
 
 export default useTheme;

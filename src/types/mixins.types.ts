@@ -1,7 +1,7 @@
-import type { ObjectType } from "./index.types";
+import type { InitialObject } from "./theme.types";
 
 export type MixinsKey = "toolbar" | string | object;
 
-export type Mixins = ObjectType<MixinsKey>;
+export type Mixins = InitialObject<MixinsKey>;
 
-export type MixinsOptions = ObjectType<MixinsKey>;
+export type MixinsOptions = InitialObject<MixinsKey>;

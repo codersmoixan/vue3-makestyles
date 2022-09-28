@@ -8,7 +8,6 @@ const numericalCSS: string[] = [
   "flexShrink",
   "order",
   "columns",
-
 ]
 
 export default numericalCSS
