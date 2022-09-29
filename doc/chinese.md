@@ -41,23 +41,18 @@ export default defineComponent({
 
 const useStyles = makeStyles({
   container: {
-    // ...
+    width: 200,
+    height: 200,
     "&.active": {
-      // ...
-
+      backgroundColor: 'red',
       "& .children": {
-        // ...
+        fontSize: 16,
+        color: 'blue',
+        "&:hover": {
+          color: 'black'
+        }
       }
     },
-    "&:hover": {
-      // ...
-    },
-    "& .children": {
-      // ...
-    },
-    "& div": {
-      // ...
-    }
   }
 })
 
@@ -88,7 +83,7 @@ export default defineComponent({
 ```JS
 // ...
 
-const useStyles = makestyles((theme) => ({
+const useStyles = makeStyles((theme) => ({
   container: {
     width: 200,
     height: 200,
@@ -249,11 +244,11 @@ export default defineComponent({
 ```JS
 // ...
 
-const useStyles = makestyles({
+const useStyles = makeStyles({
   // ...
 }, {
   name: 'TestComponent', // This name is customizable
-  // isHashName: false // 是否在生成具有hash值的类名 默认为true
+  // isHashClassName: false // 是否在生成具有hash值的类名 默认为true
 })
 ```
 你可以在你的 <a href="https://github.com/codersmoixan/vue3-makestyles/blob/master/example/theme.ts">theme.ts</a> 文件中统一配置你的css常用样式，并在`makeStyles`函数中与你在`name`中定义的名称绑定。
