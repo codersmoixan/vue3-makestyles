@@ -2,6 +2,7 @@ import generateCSS from "./generateCSS";
 import generateStyleElement from "./generateStyleElement";
 import generateClassName from "./generateClassName";
 import { isEmpty } from "../helper";
+import { tagName } from "../../constants";
 import type * as Styles from "../../types/index.types"
 
 export interface CreateCSS {
@@ -28,7 +29,7 @@ function combinedCSSAndCreateStyleElement(styles: Styles.InitialObject): { creat
       }
 
       const styleElementIDName = generateClassName(stringifyCSS);
-      const eleDataMeta = `${stylesCreatorOptions.meta ?? 'makeStyleElement'}__${styleElementIDName}`;
+      const eleDataMeta = `${stylesCreatorOptions.meta ?? tagName}__${styleElementIDName}`;
       const styleEleName = generateStyleElement(stringifyCSS, eleDataMeta);
 
       return {

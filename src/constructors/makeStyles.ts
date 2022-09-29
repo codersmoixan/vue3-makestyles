@@ -6,6 +6,7 @@ import combinedPropsClassNames from "../utils/styled/combinedPropsClassNames";
 import deleteCSSAndStyleElement from "../utils/styled/deleteCSSAndStyleElement";
 import getStylesCreator from "./getStylesCreator/getStylesCreator";
 import emptyTheme from "../constants/emptyTheme";
+import { tagName } from "../constants"
 import type * as Styles from "../types/index.types";
 
 const effectClasses = (options: Styles.EffectOptions, props: Vue.ExtractPropTypes<Styles.InitialObject> = {}) => {
@@ -40,12 +41,13 @@ function makeStyles(
     isHashClassName = true
   } = options
   const stylesCreator = getStylesCreator(stylesOrCreator);
-  const classNamePrefix = classNamePrefixOption || name || 'makeStyles';
+  const classNamePrefix = classNamePrefixOption || name || tagName;
   stylesCreator.options = {
     name,
     meta: classNamePrefix,
     classNamePrefix,
-    isHashClassName
+    isHashClassName,
+    tag: tagName
   }
 
   const useStyles = (props: Vue.ExtractPropTypes<Styles.InitialObject> = {}) => {
