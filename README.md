@@ -5,7 +5,7 @@ The api implementation draws on <a href="https://github.com/mui/material-ui/blob
 <br />
 Reading this document will help you use makeStyles. The following examples use `jsx` encoding.
 
-English <a href="https://github.com/codersmoixan/vue3-makestyles/blob/master/doc/chinese.md">中文文档</a>
+English <a href="https://github.com/codersmoixan/vue3-makestyles/blob/master/docs/chinese.md">中文文档</a>
 
 # Install
 ```shell

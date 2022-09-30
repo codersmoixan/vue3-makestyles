@@ -1,19 +1,19 @@
 # vue3-makestyles
-允许您以编写 js 对象的形式编写 CSS。
+Allows you to write CSS in the form of writing js object.
 <br />
-api实现借鉴了 <a href="https://github.com/mui/material-ui/blob/master/packages/mui-styles/src/makeStyles/makeStyles.js">mui</a>，部分工具函数借鉴了 <a href="https://github.com/UX-and-I/vue3-styled-components">vue3-styled-components</a>。
+The api implementation draws on <a href="https://github.com/mui/material-ui/blob/master/packages/mui-styles/src/makeStyles/makeStyles.js">mui</a>，Some tool functions are borrowed from <a href="https://github.com/UX-and-I/vue3-styled-components">vue3-styled-components</a>.
 <br />
-阅读本文档将帮助您使用 `makeStyles`， 以下示例使用 `jsx` 编码。
+Reading this document will help you use makeStyles. The following examples use `jsx` encoding
 
-中文文档 <a href="https://github.com/codersmoixan/vue3-makestyles/blob/master/doc/english.md">English</a>
+English <a href="https://github.com/codersmoixan/vue3-makestyles/blob/master/docs/chinese.md">中文文档</a>
 
-# 安装
+# Install
 ```shell
 $ npm install --save vue3-makestyles
 $ yarn add vue3-makestyles
 ```
 
-## 基本使用
+## Usage
 ```JS
 import makeStyles from "vue3-makestyles"
 
@@ -35,7 +35,7 @@ export default defineComponent({
 })
 ```
 
-您可以像通常编写 `less/scss` 一样编写 `makeStyles`
+You can write makeStyles like you would normally write less/scss
 ```JS
 // ...
 
@@ -58,7 +58,7 @@ const useStyles = makeStyles({
 
 // ...
 ```
-使用组件中的状态：
+Using state in components：
 ```JS
 // ...
 
@@ -76,10 +76,10 @@ export default defineComponent({
   }
 })
 ```
-> 注意：传入`useStyles`的值需要是响应式的，这样才能根据你的状态来更新的CSS样式
+> Notice: The value passed to `useStyles` needs to be responsive, so that the CSS styles can be updated according to your state
 
-## 媒体查询
-支持媒体查询钩子函数，允许您在`makeStyles`中为不同设备编写CSS代码
+## Media Query
+Supports media query hook functions, allowing you to write CSS code for different devices in makeStyles
 ```JS
 // ...
 
@@ -98,9 +98,9 @@ const useStyles = makeStyles((theme) => ({
 
 // ...
 ```
-断点提供了三种查询函数: `up`, `between`, `down`
+There are three methods for breakpoints: `up`, `between`, `down`
 <br />
-输入对应的规则断点进行匹配，`xs`、`sm`、`md`、`lg`、`xl`为默认断点，对应的像素差值如下：
+Enter the corresponding rule breakpoints for matching, `xs`, `sm`, `md`, `lg`, `xl` are default breakpoints, and the corresponding pixel difference values are as follows:
 ```JS
 values = {
   xs: 0,
@@ -110,9 +110,9 @@ values = {
   xl: 1680,
 }
 ```
-值得注意的是，如果你选择调用 `between` 方法，那么你需要传入两个断点参数，只有在你的断点之间才会返回 true。
+It's worth noting that if you choose to call the `between` method, then you need to pass in two breakpoint parameters, and it will return true when only between your breakpoints
 
-如果需要设置自定义断点，可以在`theme.ts`文件中进行自定义，然后将配置传递给`ThemeProvider`，这样makeStyles就可以读取自定义配置。
+If you need to set custom breakpoints, you can customize them in the <a href="https://github.com/codersmoixan/vue3-makestyles/blob/master/example/theme.ts">theme.ts</a> file, and then pass the configuration to `ThemeProvider`, so that makeStyles can read the custom configuration.
 ```JS
 // app.tsx / app.vue
 import { ThemeProvider } from "vue3-makestyles"
@@ -132,7 +132,7 @@ export default defineComponent({
 });
 ```
 
-`makeStyles` 还提供了可以在编写组件时使用的钩子函数。
+makeStyles also provides hook functions that you can use when writing components.
 ```JS
 import { useMediaQuery } from "vue3-makestyles"
 // ...
@@ -145,7 +145,7 @@ export default defintComponent({
   }
 })
 ```
-`makeStyles` 提供了 `Hidden` 组件，用于在你的模板中渲染被包裹的节点
+makeStyles provides the `Hidden` component, which is used to render the wrapped node in your template
 ```JS
 import { Hidden } from "vue3-makestyles"
 // ...
@@ -165,10 +165,10 @@ export default defineComponent({
   }
 })
 ```
-## 自定义配置
-`makeStyles` 允许您自定义一些配置和全局设置常见的 CSS 样式。
+## Customize
+makeStyles allows you to customize and globally set common CSS styles.
 <br />
-你可以在你的项目目录下创建一个自定义的配置文件，比如<a href="https://github.com/codersmoixan/vue3-makestyles/blob/master/example/theme.ts">theme.ts</a>，你可以在其中自定义一些你需要的配置。
+You can create a custom configuration file in your project directory, such as <a href="https://github.com/codersmoixan/vue3-makestyles/blob/master/example/theme.ts">theme.ts</a>, in which you can customize some of the configurations you need.
 ```JS
 import { createBreakpoints, createTheme } from "vue3-makestyles";
 
@@ -191,9 +191,9 @@ export default createTheme({
   // ...
 })
 ```
-然后在你的项目 `App.jsx` 文件中使用 `ThemeProvider` 将你的自定义配置依赖注入到项目全局中，然后你就可以在项目的任何地方使用你的配置文件中的配置了。
+Then use `ThemeProvider` in your project App.jsx file to inject your custom configuration dependency into the project global, and then you can use the configuration in your configuration file anywhere in your project.
 
-如果你想使用你刚刚在配置文件中定义的配置，`makeStyles`提供了一个钩子函数`useTheme`，可以让你在自定义配置文件中获取相关配置。
+If you want to use the configuration you just defined in the configuration file, makeStyles provides a hook function `useTheme` that allows you to get the relevant configuration in the custom configuration file.
 ```JS
 import { useTheme } from "vue3-makestyles"
 // ...
@@ -206,9 +206,9 @@ export default defintComponent({
   }
 })
 ```
-> 注意：hook函数必须在组件第一次挂载时执行，或者自定义hook函数第一次执行时执行，并且只能在组件或自定义hook函数的第一层定义，否则会出现 得到意想不到的结果。
+> Notice: Hook functions must be executed when the component is mounted for the first time, or when the custom hook function is executed for the first time, and can only be defined in the first layer of the component or custom hook function, otherwise There will be unexpected results.
 
-您应该：
+You should：
 ```JS
 // ...
 
@@ -222,7 +222,7 @@ export default defineComponent({
   }
 })
 ```
-您不应该:
+You should not:
 ```JS
 // ...
 
@@ -239,8 +239,8 @@ export default defineComponent({
 })
 ```
 
-## 样式隔离
-`makeStyles`生成的类是随机生成的，唯一的。 当然，你也可以将当前组件名称传递给`makeStyles`的第二个参数，那么当前创建的类只在当前组件中使用。
+## Style Isolation
+The classes generated by `makeStyles` are randomly generated and unique. Of course, you can also pass the current component name to the second parameter of `makeStyles`, then the currently created class is only used in the current component.
 ```JS
 // ...
 
@@ -248,10 +248,10 @@ const useStyles = makeStyles({
   // ...
 }, {
   name: 'TestComponent', // This name is customizable
-  // isHashClassName: false // 是否在生成具有hash值的类名 默认为true
+  // isHashClassName: false // Whether to generate a class name with a hash value The default is true
 })
 ```
-你可以在你的 <a href="https://github.com/codersmoixan/vue3-makestyles/blob/master/example/theme.ts">theme.ts</a> 文件中统一配置你的css常用样式，并在`makeStyles`函数中与你在`name`中定义的名称绑定。
+You can uniformly configure your css common styles in your <a href="https://github.com/codersmoixan/vue3-makestyles/blob/master/example/theme.ts">theme.ts</a> file, and bind with the name you define in `name` in the makeStyles function
 ```JS
 export default createTheme({
   // ...
@@ -264,10 +264,10 @@ export default createTheme({
   }
 })
 ```
-> 注意：此处定义的样式优先于您在组件中定义的样式
+> Notice: The styles defined here take precedence over the ones you define in the component
 
-## 使用styled输出组件
-`makeStyles`提供了`styled`函数用来输出组件。
+## Use styled to output components
+`makeStyles` provides the `styled` function to output components。
 ```JS
 import { styled } from "vue3-makestyles"
 // ...
@@ -285,7 +285,7 @@ export default defineComponent({
   }
 })
 ```
-你可以给组件提供一些状态用来动态设置css值，需要你提前定义组件的`props`类型。
+You can provide some state to the component to dynamically set the css value, you need to define the `props` type of the component in advance。
 ```JS
 // ...
 
@@ -307,7 +307,7 @@ export default defineComponent({
   }
 })
 ```
-你可以传入一个组件，然后修改这个组件的css样式。
+You can pass in a component and then modify the css style of this component.
 ```JS
 import Component from "components/Component"
 //...
@@ -330,3 +330,4 @@ export default defineComponent({
   }
 })
 ```
+
