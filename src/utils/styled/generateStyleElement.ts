@@ -10,11 +10,15 @@ function generateStyleElement(
   const styleEle = getStyleElement(dataMeta)
   const cssText = document.createTextNode(css);
 
+  console.log(dataMeta, styleEle, styleEle?.getAttribute('data-meta'), 1)
+
   if (styleEle) {
     // styleEle.appendChild(cssText);
 
     return null;
   }
+
+  console.log(dataMeta, '这里会执行？', 2)
 
   const styleElement = document.createElement("style");
   styleElement.setAttribute("type", "text/css");

@@ -1,15 +1,14 @@
 import createBreakpoints from "../../constructors/createBreakpoints";
 import {isEmpty, isUndefined} from "../helper";
-import type { Theme, ThemeOptions } from "../../types/theme.types";
+import type * as Styles from "../../types/theme.types";
 
-function initTheme<T extends ThemeOptions>(options: T): Theme {
+function initTheme<T extends Styles.ThemeOptions>(options: T): Styles.Theme {
   const {
     themeUnit = {
       step: 8,
       unit: "px",
     },
     palette = {},
-    typography = {},
     mixins = {},
     shape = {},
     breakpoints: propsBreakpoints = { ...themeUnit },
@@ -33,7 +32,6 @@ function initTheme<T extends ThemeOptions>(options: T): Theme {
     spacing: createSpacing,
     themeUnit,
     breakpoints,
-    typography,
     mixins,
     shape,
     palette,

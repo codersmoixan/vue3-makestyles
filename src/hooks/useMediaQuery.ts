@@ -1,10 +1,9 @@
-import { onMounted, ref, onUnmounted } from "vue";
+import * as Vue from "vue";
 import useTheme from "./useTheme";
 import { isUndefined, isFunction, isString } from "../utils/helper";
-import type { Ref } from "vue"
-import type { Theme } from "../types/theme.types";
+import type * as Styles from "../types/index.types";
 
-const useMediaQuery = (queryInput: (theme: Theme) => any): Ref<boolean> => {
+const useMediaQuery = (queryInput: (theme: Styles.Theme) => any): Vue.Ref<boolean> => {
   const supportMatchMedia = window && !isUndefined(window.matchMedia);
   const matchMedia = supportMatchMedia ? window.matchMedia : null;
 
@@ -14,8 +13,8 @@ const useMediaQuery = (queryInput: (theme: Theme) => any): Ref<boolean> => {
   let query = isString(mediaMatch) ? mediaMatch : mediaMatch.query;
   query = query.replace(/^@media( ?)/m, "");
 
-  const match = ref<boolean>(false);
-  const active = ref<boolean>(true);
+  const match = Vue.ref<boolean>(false);
+  const active = Vue.ref<boolean>(true);
 
   if (!matchMedia) {
     match.value = false;
@@ -30,7 +29,7 @@ const useMediaQuery = (queryInput: (theme: Theme) => any): Ref<boolean> => {
     match.value = queryList.matches;
   };
 
-  onMounted(() => {
+  Vue.onMounted(() => {
     active.value = true;
 
     if (!supportMatchMedia) { return; }
@@ -38,7 +37,7 @@ const useMediaQuery = (queryInput: (theme: Theme) => any): Ref<boolean> => {
     queryList.addEventListener("change", updateMatch);
   });
 
-  onUnmounted(() => {
+  Vue.onUnmounted(() => {
     active.value = false;
     queryList.removeEventListener("change", updateMatch);
   });

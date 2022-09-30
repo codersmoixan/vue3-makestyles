@@ -1,6 +1,17 @@
 export type BreakpointsKey = "xs" | "sm" | "md" | "lg" | "xl";
 
-export type MatchFunction = (key: BreakpointsKey, get?: boolean) => any;
+export type BreakpointsQueryKey = 'up' | 'down' | 'between'
+
+export type QueryResult = string | {
+  query: string;
+  value?: number | any[];
+  get?: boolean;
+  status?: string;
+}
+
+export type QueryFunction = (key: BreakpointsKey, get?: boolean) => QueryResult;
+
+export type BetweenQueryFunction = (start: BreakpointsKey, end: BreakpointsKey, get?: boolean) => QueryResult
 
 export interface BreakpointsValues {
   xs?: number;
@@ -17,8 +28,8 @@ export interface BreakpointsOptions {
 }
 
 export interface Breakpoints extends BreakpointsOptions {
-  up: MatchFunction;
-  down: MatchFunction;
-  between: (start: BreakpointsKey, end: BreakpointsKey, get?: boolean) => any;
+  up: QueryFunction;
+  down: QueryFunction;
+  between: BetweenQueryFunction;
   keys?: BreakpointsKey[];
 }

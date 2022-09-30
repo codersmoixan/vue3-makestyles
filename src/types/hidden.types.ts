@@ -1,6 +1,6 @@
 import type { BreakpointsKey } from './breakpoints.types'
 
-export type matchThresholdKey =
+export type MatchThresholdKey =
   | "xlUp"
   | "xlDown"
   | "lgUp"
