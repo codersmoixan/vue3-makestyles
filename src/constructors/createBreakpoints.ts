@@ -15,43 +15,22 @@ function createBreakpoints(breakpoints: Styles.BreakpointsOptions = {}): Styles.
 
   const keys = Object.keys(values) as Styles.BreakpointsKey[];
 
-  const up = (key: Styles.BreakpointsKey, get?: boolean): Styles.BreakpointsQueryResult => {
+  const up = (key: Styles.BreakpointsKey) => {
     const value = values[key];
-    const query = `@media (min-width:${value}${unit})`;
 
-    if (get) {
-      return {
-        query,
-        value,
-        get,
-        status: "up"
-      };
-    }
-
-    return query;
+    return `@media (min-width:${value}${unit})`;
   };
 
-  const down = (key: Styles.BreakpointsKey, get?: boolean): Styles.BreakpointsQueryResult => {
+  const down = (key: Styles.BreakpointsKey) => {
     const value = values[key] ?? 0;
-    const query = `@media (max-width:${value - step / 100}${unit})`;
 
-    if (get) {
-      return {
-        query,
-        value,
-        get,
-        status: "down"
-      };
-    }
-
-    return query;
+    return `@media (max-width:${value - step / 100}${unit})`;
   };
 
   const between = (
     start: Styles.BreakpointsKey,
     end: Styles.BreakpointsKey,
-    get?: boolean
-  ): Styles.BreakpointsQueryResult => {
+  ) => {
     const endIndex: number = keys.indexOf(end);
     const mat = keys[endIndex];
 
@@ -60,18 +39,7 @@ function createBreakpoints(breakpoints: Styles.BreakpointsOptions = {}): Styles.
     const endValue = values[end] ?? 0;
     const endMedia = (endIndex !== -1 ? startValue : endValue) - step / 100;
 
-    const query = `@media (min-width:${startMedia}${unit}) and (max-width:${endMedia}${unit})`;
-
-    if (get) {
-      return {
-        query,
-        get,
-        value: [startMedia, endMedia],
-        status: "between",
-      };
-    }
-
-    return query;
+    return `@media (min-width:${startMedia}${unit}) and (max-width:${endMedia}${unit})`;
   };
 
   return {
