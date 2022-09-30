@@ -1,12 +1,11 @@
 import * as Vue from "vue";
-import type { PropType } from "vue";
-import type { Theme } from "../../types/theme.types";
+import type * as Styles from "../../types/index.types";
 
 export default Vue.defineComponent({
   name: "ThemeProvider",
   props: {
     theme: {
-      type: Object as PropType<Theme>,
+      type: Object as Vue.PropType<Styles.Theme>,
     },
   },
   setup(props, { slots }) {

@@ -15,7 +15,7 @@ function createBreakpoints(breakpoints: Styles.BreakpointsOptions = {}): Styles.
 
   const keys = Object.keys(values) as Styles.BreakpointsKey[];
 
-  const up = (key: Styles.BreakpointsKey, get?: boolean): Styles.QueryResult => {
+  const up = (key: Styles.BreakpointsKey, get?: boolean): Styles.BreakpointsQueryResult => {
     const value = values[key];
     const query = `@media (min-width:${value}${unit})`;
 
@@ -31,7 +31,7 @@ function createBreakpoints(breakpoints: Styles.BreakpointsOptions = {}): Styles.
     return query;
   };
 
-  const down = (key: Styles.BreakpointsKey, get?: boolean): Styles.QueryResult => {
+  const down = (key: Styles.BreakpointsKey, get?: boolean): Styles.BreakpointsQueryResult => {
     const value = values[key] ?? 0;
     const query = `@media (max-width:${value - step / 100}${unit})`;
 
@@ -51,7 +51,7 @@ function createBreakpoints(breakpoints: Styles.BreakpointsOptions = {}): Styles.
     start: Styles.BreakpointsKey,
     end: Styles.BreakpointsKey,
     get?: boolean
-  ): Styles.QueryResult => {
+  ): Styles.BreakpointsQueryResult => {
     const endIndex: number = keys.indexOf(end);
     const mat = keys[endIndex];
 

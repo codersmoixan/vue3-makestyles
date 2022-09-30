@@ -1,17 +1,17 @@
 export type BreakpointsKey = "xs" | "sm" | "md" | "lg" | "xl";
 
-export type BreakpointsQueryKey = 'up' | 'down' | 'between'
+export type BreakpointsQueryHookKey = 'up' | 'down' | 'between'
 
-export type QueryResult = string | {
+export type BreakpointsQueryResult = string | {
   query: string;
   value?: number | any[];
   get?: boolean;
   status?: string;
 }
 
-export type QueryFunction = (key: BreakpointsKey, get?: boolean) => QueryResult;
+export type BreakpointsQueryHook = (key: BreakpointsKey, get?: boolean) => BreakpointsQueryResult;
 
-export type BetweenQueryFunction = (start: BreakpointsKey, end: BreakpointsKey, get?: boolean) => QueryResult
+export type BreakpointsBetweenQueryHook = (start: BreakpointsKey, end: BreakpointsKey, get?: boolean) => BreakpointsQueryResult
 
 export interface BreakpointsValues {
   xs?: number;
@@ -28,8 +28,8 @@ export interface BreakpointsOptions {
 }
 
 export interface Breakpoints extends BreakpointsOptions {
-  up: QueryFunction;
-  down: QueryFunction;
-  between: BetweenQueryFunction;
+  up: BreakpointsQueryHook;
+  down: BreakpointsQueryHook;
+  between: BreakpointsBetweenQueryHook;
   keys?: BreakpointsKey[];
 }

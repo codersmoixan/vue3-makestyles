@@ -16,13 +16,13 @@ const useVisible = (props: Vue.ExtractPropTypes<Styles.InitialObject<boolean>>) 
     findMatchKey(props)
   )?.[0] as Styles.MatchThresholdKey;
 
-  const match = matchThreshold[matchKeys] as { query: Styles.BreakpointsQueryKey, key: Styles.BreakpointsKey };
+  const match = matchThreshold[matchKeys] as { query: Styles.BreakpointsQueryHookKey, key: Styles.BreakpointsKey };
 
   if (isUndefined(match)) {
     return isHide
   }
 
-  return useMediaQuery((theme: Styles.Theme) => (theme.breakpoints[match.query] as Styles.QueryFunction)(match.key));
+  return useMediaQuery((theme: Styles.Theme) => (theme.breakpoints[match.query] as Styles.BreakpointsQueryHook)(match.key));
 };
 
 export default useVisible;
