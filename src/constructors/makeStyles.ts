@@ -31,7 +31,7 @@ const effectClasses = (options: Styles.EffectOptions, props: Vue.ExtractPropType
 };
 
 function makeStyles(
-  stylesOrCreator: Styles.StyleOrCreator,
+  stylesOrCreator: Styles.StylesOrCreator,
   options: Styles.MakeStylesOptions = {}
 ) {
   const {

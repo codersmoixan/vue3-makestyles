@@ -1,6 +1,6 @@
 {
   "name": "vue3-makestyles",
-  "version": "1.1.5",
+  "version": "1.2.0",
   "description": "Allows you to write CSS in the form of writing js object, Applicable to vue3",
   "main": "dist/vue-makestyles.cjs.js",
   "jsnext:main": "dist/vue-makestyles.esm.js",
@@ -80,6 +80,7 @@
     "vue": ">=3.2.0"
   },
   "dependencies": {
+    "csstype": "^3.1.1",
     "glamor": "^2.20.40",
     "stylis": "3.5.4"
   }

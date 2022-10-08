@@ -3,7 +3,7 @@ import deepmerge from "../../utils/styled/deepmerge";
 import emptyTheme from "../../constants/emptyTheme";
 import type * as Styles from "../../types/index.types";
 
-export default function getStylesCreator(stylesOrCreator: Styles.StyleOrCreator): Styles.StyleCreatorValue {
+export default function getStylesCreator(stylesOrCreator: Styles.StylesOrCreator): Styles.StyleCreatorValue {
   const themingEnabled = typeof stylesOrCreator === 'function'
 
   if (process.env.NODE_ENV !== 'production') {
