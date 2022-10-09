@@ -10,19 +10,21 @@ export interface CreateCSS {
   styleEleName: string | null;
 }
 
-function combinedCSSAndCreateStyleElement(styles: Styles.InitialObject): { create: (stylesCreatorOptions: Styles.InitialObject) => CreateCSS }  {
+function combinedCSSAndCreateStyleElement(styles: Styles.InitialObject): { create: (stylesCreatorOptions: Styles.StyleCreatorResultOptions) => CreateCSS }  {
 
   return {
-    create: (stylesCreatorOptions: Styles.MakeStylesOptions) : CreateCSS => {
+    create: (stylesCreatorOptions: Styles.StyleCreatorResultOptions) : CreateCSS => {
       const classes: Styles.InitialObject<string> = {};
       let stringifyCSS = "";
 
+      const insert = stylesCreatorOptions.sheet?.insertSheet(stylesCreatorOptions)
       for (const [key, value] of Object.entries(styles)) {
         if (isEmpty(value)) {
           continue;
         }
 
         const { selector, css } = generateCSS(value, stylesCreatorOptions, key);
+        insert?.(css)
 
         classes[key] = selector;
         stringifyCSS += css;
@@ -30,11 +32,11 @@ function combinedCSSAndCreateStyleElement(styles: Styles.InitialObject): { creat
 
       const styleElementIDName = generateClassName(stringifyCSS);
       const eleDataMeta = `${stylesCreatorOptions.meta ?? tagName}__${styleElementIDName}`;
-      const styleEleName = generateStyleElement(stringifyCSS, eleDataMeta);
+      // const styleEleName = generateStyleElement(stringifyCSS, eleDataMeta);
 
       return {
         classes,
-        styleEleName,
+        styleEleName: eleDataMeta,
       };
     }
   }

@@ -7,12 +7,15 @@ import deleteCSSAndStyleElement from "../utils/styled/deleteCSSAndStyleElement";
 import getStylesCreator from "./getStylesCreator/getStylesCreator";
 import emptyTheme from "../constants/emptyTheme";
 import { tagName } from "../constants"
+import sheet from "../model/sheet";
 import type * as Styles from "../types/index.types";
 
-const effectClasses = (options: Styles.EffectOptions, props: Vue.ExtractPropTypes<Styles.InitialObject> = {}) => {
+const effectClasses = (options: Styles.MakeStylesEffectOptions, props: Vue.ExtractPropTypes<Styles.InitialObject> = {}) => {
   const { theme, name,  stylesCreator, classNames, styleEleName } = options
 
   const styles = stylesCreator.create(theme, props, name);
+  stylesCreator.options.styles = styles
+  stylesCreator.options.styleKeys = Object.keys(styles)
 
   if (isEmpty(styles)) {
     return;
@@ -30,7 +33,11 @@ const effectClasses = (options: Styles.EffectOptions, props: Vue.ExtractPropType
   forOf(classNames, combinedClasses)
 };
 
-function makeStyles(
+function makeStyles<
+  Theme = Styles.Theme,
+  Props extends object = {},
+  ClassKey extends string = string
+>(
   stylesOrCreator: Styles.StylesOrCreator,
   options: Styles.MakeStylesOptions = {}
 ) {
@@ -38,7 +45,7 @@ function makeStyles(
     name = '',
     classNamePrefix: classNamePrefixOption,
     defaultTheme = emptyTheme,
-    isHashClassName = true
+    isHashClassName
   } = options
   const stylesCreator = getStylesCreator(stylesOrCreator);
   const classNamePrefix = classNamePrefixOption || name || tagName;
@@ -46,8 +53,9 @@ function makeStyles(
     name,
     meta: classNamePrefix,
     classNamePrefix,
-    isHashClassName,
-    tag: tagName
+    isHashClassName: isHashClassName ?? !name,
+    tag: tagName,
+    sheet,
   }
 
   const useStyles = (props: Vue.ExtractPropTypes<Styles.InitialObject> = {}) => {
