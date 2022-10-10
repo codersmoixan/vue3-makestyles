@@ -1,6 +1,7 @@
 import { isEmpty, isObject, isUndefined } from "../../utils/helper";
 import deepmerge from "../../utils/styled/deepmerge";
 import emptyTheme from "../../constants/emptyTheme";
+import { tagName } from "../../constants";
 import type * as Styles from "../../types/index.types";
 
 export default function getStylesCreator(stylesOrCreator: Styles.StylesOrCreator): Styles.StyleCreatorResult {
@@ -56,9 +57,7 @@ export default function getStylesCreator(stylesOrCreator: Styles.StylesOrCreator
       return stylesWithOverrides
     },
     options: {
-      id: '',
-      inserted: {},
-      name: '',
+      name: tagName
     }
   }
 }

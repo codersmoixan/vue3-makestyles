@@ -15,10 +15,16 @@ function randomRange(min: number = 5, max?: number): string {
   return returnStr;
 }
 
-function generateHashName(h: string = randomRange()): string {
+function generateHashName(h: string = randomRange()): {
+  hash: string,
+  selector: string
+} {
   const hash = hashStr(h);
 
-  return generateAlphabeticName(hash);
+  return {
+    hash,
+    selector: generateAlphabeticName(hash)
+  }
 }
 
 export default generateHashName;

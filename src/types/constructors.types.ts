@@ -6,8 +6,10 @@ import type CSS from "../models/css";
 
 export type ClassNameMap<ClassKey extends string = string> = Record<ClassKey, string>;
 
+export type CSSProperties = GlobalCSS.Properties<number | string | undefined | null | Styles.Spacing>
+
 export interface CreateCSSProperties {
-  [k: string]: GlobalCSS.Properties<number | string | undefined | null | Styles.Spacing>
+  [k: string]: CSSProperties
 }
 
 export type StyleRulesCallback = (
@@ -18,8 +20,6 @@ export type StyleRulesCallback = (
 export type StylesOrCreator = CreateCSSProperties | StyleRulesCallback
 
 export interface StyleCreatorResultOptions extends Styles.InitialObject {
-  id: string;
-  inserted: Styles.InitialObject;
   name: string;
   meta?: string;
   classNamePrefix?: string;

@@ -14,10 +14,13 @@ function styled(component: any, propDefinitions: Vue.ExtractPropTypes<StyledProp
 
   const combinedPropTypes = (componentProps ? { ...componentProps, ...propDefinitions } : propDefinitions)
 
-  const createStyledComponent = (styles: Styles.StylesOrCreator, options: Styles.MakeStylesOptions = {}): Vue.DefineComponent<typeof combinedPropTypes> => {
+  const createStyledComponent = (
+    styles: Styles.CSSProperties | ((theme: Styles.Theme, props: Styles.InitialObject) => Styles.CSSProperties),
+    options: Styles.MakeStylesOptions = {}
+  ): Vue.DefineComponent<typeof combinedPropTypes> => {
     const stylesOrCreator =
       typeof styles === 'function'
-        ? (theme: Styles.Theme, props: Vue.ExtractPropTypes<typeof propDefinitions> = {}) => ({ root: styles(theme, props) })
+        ? (theme: Styles.Theme, props: Styles.InitialObject = {}) => ({ root: styles(theme, props) })
         : { root: styles };
 
     const useStyles = makeStyles(stylesOrCreator, { name, ...options })

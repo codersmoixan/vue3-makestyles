@@ -7,12 +7,11 @@ import getStylesCreator from "./getStylesCreator/getStylesCreator";
 import emptyTheme from "../constants/emptyTheme";
 import { tagName } from "../constants"
 import sheet from "../models/sheet";
-import generateHashName from "../utils/styled/generateHashName";
 import type * as Styles from "../types/index.types";
 
 const effectClasses = (options: Styles.MakeStylesEffectOptions, props: Vue.ExtractPropTypes<Styles.InitialObject> = {}) => {
   const { theme, stylesCreator, classNames, css } = options
-  const { name, id, inserted: optionsInserted } = stylesCreator.options
+  const { name } = stylesCreator.options
 
   const styles = stylesCreator.create(theme, props, name);
   stylesCreator.options.styles = styles
@@ -24,12 +23,6 @@ const effectClasses = (options: Styles.MakeStylesEffectOptions, props: Vue.Extra
 
   const combinedCSS = css.init(stylesCreator.options);
   const classes = combinedCSS.create(styles)
-  const inserted = optionsInserted?.[id]
-
-  if (isEmpty(classes) && !isEmpty(inserted)) {
-    forOf(classNames, inserted)
-    return
-  }
 
   const combinedClasses = combinedPropsClassNames(
     classes,
@@ -56,8 +49,6 @@ function makeStyles<
   const stylesCreator = getStylesCreator(stylesOrCreator);
   const classNamePrefix = classNamePrefixOption || name || tagName;
   stylesCreator.options = {
-    ...stylesCreator.options,
-    id: classNamePrefix === tagName ? `${classNamePrefix}_${generateHashName()}` : classNamePrefix,
     name,
     meta: classNamePrefix,
     classNamePrefix,
