@@ -1,12 +1,15 @@
 import * as Vue from "vue";
 import type * as Styles from "./index.types";
-import type * as CSS from "csstype"
-import type { Sheet } from "../model/sheet";
+import type * as GlobalCSS from "csstype"
+import type { Sheet } from "../models/sheet";
+import type CSS from "../models/css";
 
 export type ClassNameMap<ClassKey extends string = string> = Record<ClassKey, string>;
 
+export type CSSProperties = GlobalCSS.Properties<number | string | undefined | null | Styles.Spacing>
+
 export interface CreateCSSProperties {
-  [k: string]: CSS.Properties<number | string | undefined | null | Styles.Spacing>
+  [k: string]: CSSProperties
 }
 
 export type StyleRulesCallback = (
@@ -17,16 +20,16 @@ export type StyleRulesCallback = (
 export type StylesOrCreator = CreateCSSProperties | StyleRulesCallback
 
 export interface StyleCreatorResultOptions extends Styles.InitialObject {
-  name?: string;
+  name: string;
   meta?: string;
   classNamePrefix?: string;
-  isHashClassName?: boolean;
   tag?: string;
   unit?: string;
   numericalCSS?: string[];
-  sheet?: Sheet,
   styles?: CreateCSSProperties;
-  styleKeys?: string[]
+  styleKeys?: string[];
+  sheet?: Sheet,
+  isHashClassName?: boolean;
 }
 
 export interface StyleCreatorResult {
@@ -35,12 +38,10 @@ export interface StyleCreatorResult {
 }
 
 export interface MakeStylesEffectOptions {
-  classNamePrefix: string
   theme: Styles.Theme
   stylesCreator: StyleCreatorResult
-  styleEleName: Vue.Ref<string | null>
+  css: CSS;
   classNames: Styles.InitialObject
-  name: string
 }
 
 export interface MakeStylesOptions extends Styles.InitialObject{
