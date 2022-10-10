@@ -55,6 +55,10 @@ export default function getStylesCreator(stylesOrCreator: Styles.StylesOrCreator
 
       return stylesWithOverrides
     },
-    options: {}
+    options: {
+      id: '',
+      inserted: {},
+      name: '',
+    }
   }
 }

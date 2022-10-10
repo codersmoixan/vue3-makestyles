@@ -1,17 +1,18 @@
 import * as Vue from "vue";
 import useTheme from "../hooks/useTheme";
 import { forOf, isEmpty } from "../utils/helper"
-import combinedCSSAndCreateStyleElement from "../utils/styled/combinedCSSAndCreateStyleElement";
+import CSS from "../models/css";
 import combinedPropsClassNames from "../utils/styled/combinedPropsClassNames";
-import deleteCSSAndStyleElement from "../utils/styled/deleteCSSAndStyleElement";
 import getStylesCreator from "./getStylesCreator/getStylesCreator";
 import emptyTheme from "../constants/emptyTheme";
 import { tagName } from "../constants"
-import sheet from "../model/sheet";
+import sheet from "../models/sheet";
+import generateHashName from "../utils/styled/generateHashName";
 import type * as Styles from "../types/index.types";
 
 const effectClasses = (options: Styles.MakeStylesEffectOptions, props: Vue.ExtractPropTypes<Styles.InitialObject> = {}) => {
-  const { theme, name,  stylesCreator, classNames, styleEleName } = options
+  const { theme, stylesCreator, classNames, css } = options
+  const { name, id, inserted: optionsInserted } = stylesCreator.options
 
   const styles = stylesCreator.create(theme, props, name);
   stylesCreator.options.styles = styles
@@ -21,14 +22,19 @@ const effectClasses = (options: Styles.MakeStylesEffectOptions, props: Vue.Extra
     return;
   }
 
-  const combinedCSS = combinedCSSAndCreateStyleElement(styles);
-  const css = combinedCSS.create(stylesCreator.options)
+  const combinedCSS = css.init(stylesCreator.options);
+  const classes = combinedCSS.create(styles)
+  const inserted = optionsInserted?.[id]
+
+  if (isEmpty(classes) && !isEmpty(inserted)) {
+    forOf(classNames, inserted)
+    return
+  }
+
   const combinedClasses = combinedPropsClassNames(
-    css.classes,
+    classes,
     props.classes
   );
-
-  styleEleName.value = css.styleEleName;
 
   forOf(classNames, combinedClasses)
 };
@@ -50,6 +56,8 @@ function makeStyles<
   const stylesCreator = getStylesCreator(stylesOrCreator);
   const classNamePrefix = classNamePrefixOption || name || tagName;
   stylesCreator.options = {
+    ...stylesCreator.options,
+    id: classNamePrefix === tagName ? `${classNamePrefix}_${generateHashName()}` : classNamePrefix,
     name,
     meta: classNamePrefix,
     classNamePrefix,
@@ -58,33 +66,24 @@ function makeStyles<
     sheet,
   }
 
+  const css = new CSS(stylesCreator.options)
+
   const useStyles = (props: Vue.ExtractPropTypes<Styles.InitialObject> = {}) => {
     const theme = useTheme() || defaultTheme;
     stylesCreator.options.unit = theme.themeUnit?.unit ?? 'px'
     stylesCreator.options.numericalCSS = theme.numericalCSS
 
-    const styleEleName = Vue.ref<string | null>("");
     const classNames = Vue.reactive<Styles.InitialObject>({});
 
     Vue.watchEffect(() => {
       const current = {
-        name,
-        classNamePrefix,
         theme,
         stylesCreator,
+        css,
         classNames,
-        styleEleName
       }
 
       effectClasses(current, props);
-    });
-
-    Vue.onUnmounted(() => {
-      const combinedClassNamesValue = Object.values(classNames);
-      deleteCSSAndStyleElement(
-        `.${combinedClassNamesValue?.[0]}`,
-        styleEleName.value
-      );
     });
 
     return classNames;

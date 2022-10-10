@@ -1,9 +1,9 @@
-const chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+export const charsStr = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
 function generateAlphabeticName(code: number): string {
-  const lastDigit = chars[code % chars.length];
-  return code > chars.length
-    ? `${generateAlphabeticName(Math.floor(code / chars.length))}${lastDigit}`
+  const lastDigit = charsStr.split("")[code % charsStr.length];
+  return code > charsStr.length
+    ? `${generateAlphabeticName(Math.floor(code / charsStr.length))}${lastDigit}`
     : lastDigit;
 }
 
