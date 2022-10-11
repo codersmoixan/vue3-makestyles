@@ -1,27 +1,35 @@
 import * as Vue from "vue";
 import useTheme from "../hooks/useTheme";
 import { forOf, isEmpty } from "../utils/helper"
-import CSS from "../models/css";
+import CSS from "../models/CSS";
 import combinedPropsClassNames from "../utils/styled/combinedPropsClassNames";
-import getStylesCreator from "./getStylesCreator/getStylesCreator";
 import emptyTheme from "../constants/emptyTheme";
 import { tagName } from "../constants"
-import sheet from "../models/sheet";
+import sheet from "../models/Sheet";
 import type * as Styles from "../types/index.types";
+import StylesCreator from "../models/StylesCreator";
 
-const effectClasses = (options: Styles.MakeStylesEffectOptions, props: Vue.ExtractPropTypes<Styles.InitialObject> = {}) => {
+interface EffectOptions {
+  theme: Styles.Theme;
+  stylesCreator: StylesCreator;
+  classNames: Styles.InitialObject;
+  css: CSS
+}
+
+const effectClasses = (options: EffectOptions, props: Vue.ExtractPropTypes<Styles.InitialObject> = {}) => {
   const { theme, stylesCreator, classNames, css } = options
-  const { name } = stylesCreator.options
 
-  const styles = stylesCreator.create(theme, props, name);
-  stylesCreator.options.styles = styles
-  stylesCreator.options.styleKeys = Object.keys(styles)
+  const styles = stylesCreator.create(theme, props);
+  stylesCreator.updateOptions({
+    styles,
+    styleKeys: Object.keys(styles)
+  })
 
   if (isEmpty(styles)) {
     return;
   }
 
-  const combinedCSS = css.init(stylesCreator.options);
+  const combinedCSS = css.init(stylesCreator.getOptions());
   const classes = combinedCSS.create(styles)
 
   const combinedClasses = combinedPropsClassNames(
@@ -46,23 +54,29 @@ function makeStyles<
     defaultTheme = emptyTheme,
     isHashClassName
   } = options
-  const stylesCreator = getStylesCreator(stylesOrCreator);
+  const stylesCreator = new StylesCreator({
+    name,
+    stylesCreator: stylesOrCreator
+  });
+
   const classNamePrefix = classNamePrefixOption || name || tagName;
-  stylesCreator.options = {
+  stylesCreator.updateOptions({
     name,
     meta: classNamePrefix,
     classNamePrefix,
     isHashClassName: isHashClassName ?? !name,
     tag: tagName,
-    sheet,
-  }
+    sheet
+  })
 
-  const css = new CSS(stylesCreator.options)
+  const css = new CSS(stylesCreator.getOptions())
 
   const useStyles = (props: Vue.ExtractPropTypes<Styles.InitialObject> = {}) => {
     const theme = useTheme() || defaultTheme;
-    stylesCreator.options.unit = theme.themeUnit?.unit ?? 'px'
-    stylesCreator.options.numericalCSS = theme.numericalCSS
+    stylesCreator.updateOptions({
+      unit: theme.themeUnit?.unit ?? 'px',
+      numericalCSS: theme.numericalCSS
+    })
 
     const classNames = Vue.reactive<Styles.InitialObject>({});
 

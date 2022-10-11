@@ -5,7 +5,17 @@ import stylis from "stylis";
 import numericalCSS from "../constants/numericalCSS";
 import type * as Styles from "../types/index.types"
 
-function createClassName({stringCSS, className = '', stylesCreatorOptions}: { stringCSS: string, stylesCreatorOptions: Styles.MakeStylesOptions, className?: string }): string {
+interface CreateClassNameResult {
+  stringCSS: string;
+  stylesCreatorOptions: Styles.MakeStylesOptions;
+  className?: string
+}
+
+function createClassName({
+    stringCSS,
+    className = '',
+    stylesCreatorOptions
+  }: CreateClassNameResult): string {
   const { classNamePrefix, isHashClassName } = stylesCreatorOptions
   const { selector } = generateHashName(stringCSS);
   const isInClassName = isUndefined(className)
@@ -98,7 +108,6 @@ class CSS {
   }
 
   public stringify(styles: Styles.CreateCSSProperties) {
-
     const classes: Styles.InitialObject<string> = {};
     let stringifyCss = "";
 

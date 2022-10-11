@@ -1,8 +1,7 @@
 import * as Vue from "vue";
 import type * as Styles from "./index.types";
 import type * as GlobalCSS from "csstype"
-import type { Sheet } from "../models/sheet";
-import type CSS from "../models/css";
+import { Sheet } from "../models/Sheet";
 
 export type ClassNameMap<ClassKey extends string = string> = Record<ClassKey, string>;
 
@@ -19,8 +18,11 @@ export type StyleRulesCallback = (
 
 export type StylesOrCreator = CreateCSSProperties | StyleRulesCallback
 
-export interface StyleCreatorResultOptions extends Styles.InitialObject {
+export interface StyleCreatorInitOptions {
   name: string;
+}
+
+export interface StyleCreatorUpdateOptions extends Styles.InitialObject {
   meta?: string;
   classNamePrefix?: string;
   tag?: string;
@@ -28,21 +30,11 @@ export interface StyleCreatorResultOptions extends Styles.InitialObject {
   numericalCSS?: string[];
   styles?: CreateCSSProperties;
   styleKeys?: string[];
-  sheet?: Sheet,
+  sheet?: Sheet;
   isHashClassName?: boolean;
 }
 
-export interface StyleCreatorResult {
-  create: (theme: Styles.Theme, props: Vue.ExtractPropTypes<Styles.InitialObject>, name: string) => CreateCSSProperties
-  options: StyleCreatorResultOptions
-}
-
-export interface MakeStylesEffectOptions {
-  theme: Styles.Theme
-  stylesCreator: StyleCreatorResult
-  css: CSS;
-  classNames: Styles.InitialObject
-}
+export interface StyleCreatorResultOptions extends StyleCreatorInitOptions, StyleCreatorUpdateOptions {}
 
 export interface MakeStylesOptions extends Styles.InitialObject{
   name?: string

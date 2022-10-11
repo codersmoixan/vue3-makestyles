@@ -1,5 +1,5 @@
-import StyleSheet from "../constructors/styleSheet";
-import type { StyleCreatorResultOptions } from "../types/constructors.types";
+import StyleSheet from "./StyleSheet"
+import type * as Styles from "../types/index.types";
 
 export class Sheet {
   private globalStyleSheet: StyleSheet;
@@ -12,7 +12,7 @@ export class Sheet {
     this.ctr = 0
   }
 
-  public insertSheet({ name, styleKeys }: StyleCreatorResultOptions) {
+  public insertSheet({ name, styleKeys }: Styles.StyleCreatorResultOptions) {
     return (rule: string) => {
       if (!name) {
         return this.globalStyleSheet.insert(rule, 'makeStyles')
