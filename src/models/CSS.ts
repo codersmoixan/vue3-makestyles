@@ -36,7 +36,7 @@ class CSS {
 
   constructor(options: Styles.StyleCreatorResultOptions) {
     this.creatorOptions = options
-    this.inserted = {} as Styles.InitialObject<number>
+    this.inserted = {}
     this.initHash = ''
   }
 
@@ -57,7 +57,7 @@ class CSS {
     this.initHash = this.initHash || hash
 
     if (this.inserted[hash]) {
-      return objectMerge(initHashInserted, this.inserted[hash])
+      return objectMerge({}, initHashInserted, this.inserted[hash])
     }
 
     if (isEmpty(classes) || !stringifyCss) {
@@ -67,7 +67,7 @@ class CSS {
     this.inserted[hash] = classes
     insert?.(stringifyCss)
 
-    return objectMerge(initHashInserted, classes)
+    return objectMerge({}, initHashInserted, classes)
   }
 
   public generate(options: Styles.CSSProperties, className: string) {
