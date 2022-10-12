@@ -23,6 +23,7 @@ function sheetForTag(tag: HTMLStyleElement) {
 }
 
 interface StyleSheetParams {
+  meta?: string;
   maxlength?: number;
 }
 
@@ -33,12 +34,26 @@ class StyleSheet {
   private tags: any[];
   private sheet: CSSStyleSheet | undefined;
 
-  constructor({ maxlength = 4000 }: StyleSheetParams = {}) {
+  constructor({ maxlength = 4000, meta }: StyleSheetParams = {}) {
     this.maxLength = maxlength
     this.currentLength = 0
-    this.meta = ''
+    this.meta = meta ?? 'makeStyles'
     this.tags = []
     this.sheet = undefined
+
+    this.init()
+  }
+
+  public init(meta: string = '') {
+    if (meta && meta !== this.meta) {
+      this.meta = meta
+      this.currentLength = 0
+      this.tags.push(makeStyleTag(meta))
+    }
+
+    if (isEmpty(this.tags)) {
+      this.tags.push(makeStyleTag(this.meta))
+    }
   }
 
   public appendRules(rules: string, meta: string) {
@@ -56,10 +71,6 @@ class StyleSheet {
 
   public insert(rules: string, meta: string) {
     this.sheet = sheetForTag(last(this.tags))
-
-    if (isEmpty(this.tags)) {
-      this.tags.push(makeStyleTag(meta))
-    }
 
     this.appendRules(rules, meta)
   }

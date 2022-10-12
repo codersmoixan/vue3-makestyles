@@ -1,4 +1,4 @@
-import { isEmpty } from "../helper";
+import { objectMerge, isEmpty } from "../helper";
 import type * as Styles from "../../types/index.types";
 
 function combinedPropsClassNames(
@@ -9,10 +9,7 @@ function combinedPropsClassNames(
     return makeClassNames;
   }
 
-  const combinedClassNames: Styles.InitialObject<string> = Object.assign(
-    {},
-    makeClassNames
-  );
+  const combinedClassNames: Styles.InitialObject<string> = objectMerge({}, makeClassNames);
 
   for (const [key, value] of Object.entries(propsClassNames)) {
     if (combinedClassNames[key]) {

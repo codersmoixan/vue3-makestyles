@@ -1,11 +1,21 @@
 import generateHashName from "../utils/styled/generateHashName";
-import { isEmpty, isNumber, isObject, isUndefined, toLine } from "../utils/helper";
+import { objectMerge, isEmpty, isNumber, isObject, isUndefined, toLine } from "../utils/helper";
 import stringifyCSS from "../utils/styled/stringifyCSS";
 import stylis from "stylis";
 import numericalCSS from "../constants/numericalCSS";
 import type * as Styles from "../types/index.types"
 
-function createClassName({stringCSS, className = '', stylesCreatorOptions}: { stringCSS: string, stylesCreatorOptions: Styles.MakeStylesOptions, className?: string }): string {
+interface CreateClassNameResult {
+  stringCSS: string;
+  stylesCreatorOptions: Styles.MakeStylesOptions;
+  className?: string
+}
+
+function createClassName({
+  stringCSS,
+  className,
+  stylesCreatorOptions
+}: CreateClassNameResult): string {
   const { classNamePrefix, isHashClassName } = stylesCreatorOptions
   const { selector } = generateHashName(stringCSS);
   const isInClassName = isUndefined(className)
@@ -20,53 +30,61 @@ function createClassName({stringCSS, className = '', stylesCreatorOptions}: { st
 }
 
 class CSS {
+  private initHash: string;
   private creatorOptions: Styles.StyleCreatorResultOptions;
   private inserted: Styles.InitialObject;
 
   constructor(options: Styles.StyleCreatorResultOptions) {
     this.creatorOptions = options
-    this.inserted = {} as Styles.InitialObject<number>
+    this.inserted = {}
+    this.initHash = ''
   }
 
   public init(creatorOptions: Styles.StyleCreatorResultOptions) {
     this.creatorOptions = creatorOptions
 
-    return this.create()
+    return {
+      create: (styles: Styles.CreateCSSProperties) => this.create(styles)
+    }
   }
 
-  public create() {
-    return ({
-      create: (styles: Styles.CreateCSSProperties): Styles.InitialObject<string> => {
-        const insert = this.creatorOptions.sheet?.insertSheet(this.creatorOptions)
-        const { classes, stringifyCss } = this.stringify(styles)
-        const { hash } = generateHashName(stringifyCss)
+  public create(styles: Styles.CreateCSSProperties): Styles.InitialObject<string> {
+    const insert = this.creatorOptions.sheet?.insertSheet(this.creatorOptions)
+    const { classes, stringifyCss } = this.stringify(styles)
+    const { hash } = generateHashName(stringifyCss)
+    const initHashInserted = this.inserted[this.initHash] ?? {}
 
-        if (this.inserted[hash]) {
-          return this.inserted[hash]
-        }
+    this.initHash = this.initHash || hash
 
-        this.inserted[hash] = classes
-        insert?.(stringifyCss)
+    if (this.inserted[hash]) {
+      return objectMerge({}, initHashInserted, this.inserted[hash])
+    }
 
-        return classes
-      }
-    })
+    if (isEmpty(classes) || !stringifyCss) {
+      return this.inserted[this.initHash]
+    }
+
+    this.inserted[hash] = classes
+    insert?.(stringifyCss)
+
+    return objectMerge({}, initHashInserted, classes)
   }
 
-  public generate(options: Styles.CSSProperties, className?: string) {
+  public generate(options: Styles.CSSProperties, className: string) {
     const flatCSS = this.flatten(options);
     const stringCSS = stringifyCSS(flatCSS);
 
     const selector = createClassName({
-        stringCSS,
-        stylesCreatorOptions: this.creatorOptions,
-        className
-      })
+      stringCSS,
+      stylesCreatorOptions: this.creatorOptions,
+      className
+    })
     const css = stylis(`.${selector}`, stringCSS);
 
     return {
       css,
       selector,
+      className
     };
   }
 
@@ -98,8 +116,8 @@ class CSS {
   }
 
   public stringify(styles: Styles.CreateCSSProperties) {
-
     const classes: Styles.InitialObject<string> = {};
+    const inserted = this.inserted[this.initHash]
     let stringifyCss = "";
 
     for (const [key, value] of Object.entries(styles)) {
@@ -107,7 +125,11 @@ class CSS {
         continue;
       }
 
-      const { selector, css } = this.generate(value, key);
+      const { selector, css, className } = this.generate(value, key);
+
+      if (inserted && inserted[className] === selector) {
+        continue
+      }
 
       classes[key] = selector;
       stringifyCss += css;

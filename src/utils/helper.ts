@@ -37,3 +37,5 @@ export const forOf = (target: Record<string, any>, source: Record<string, any>, 
     }
   }
 }
+
+export const objectMerge = <T = object>(target: object, ...other: T[]): T => Object.assign(target, ...other)
