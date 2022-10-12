@@ -20,12 +20,11 @@ export type StylesOrCreator = CreateCSSProperties | StyleRulesCallback
 
 export interface StyleCreatorInitOptions {
   name: string;
+  meta: string;
 }
 
 export interface StyleCreatorUpdateOptions extends Styles.InitialObject {
-  meta?: string;
   classNamePrefix?: string;
-  tag?: string;
   unit?: string;
   numericalCSS?: string[];
   styles?: CreateCSSProperties;

@@ -1,5 +1,5 @@
 import generateHashName from "../utils/styled/generateHashName";
-import { copyObject, isEmpty, isNumber, isObject, isUndefined, toLine } from "../utils/helper";
+import { objectMerge, isEmpty, isNumber, isObject, isUndefined, toLine } from "../utils/helper";
 import stringifyCSS from "../utils/styled/stringifyCSS";
 import stylis from "stylis";
 import numericalCSS from "../constants/numericalCSS";
@@ -13,7 +13,7 @@ interface CreateClassNameResult {
 
 function createClassName({
   stringCSS,
-  className = '',
+  className,
   stylesCreatorOptions
 }: CreateClassNameResult): string {
   const { classNamePrefix, isHashClassName } = stylesCreatorOptions
@@ -57,7 +57,7 @@ class CSS {
     this.initHash = this.initHash || hash
 
     if (this.inserted[hash]) {
-      return copyObject({}, initHashInserted, this.inserted[hash])
+      return objectMerge(initHashInserted, this.inserted[hash])
     }
 
     if (isEmpty(classes) || !stringifyCss) {
@@ -67,7 +67,7 @@ class CSS {
     this.inserted[hash] = classes
     insert?.(stringifyCss)
 
-    return copyObject(initHashInserted, classes)
+    return objectMerge(initHashInserted, classes)
   }
 
   public generate(options: Styles.CSSProperties, className: string) {
@@ -117,6 +117,7 @@ class CSS {
 
   public stringify(styles: Styles.CreateCSSProperties) {
     const classes: Styles.InitialObject<string> = {};
+    const inserted = this.inserted[this.initHash]
     let stringifyCss = "";
 
     for (const [key, value] of Object.entries(styles)) {
@@ -126,7 +127,6 @@ class CSS {
 
       const { selector, css, className } = this.generate(value, key);
 
-      const inserted = this.inserted[this.initHash]
       if (inserted && inserted[className] === selector) {
         continue
       }

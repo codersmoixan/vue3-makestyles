@@ -1,32 +1,38 @@
-import { copyObject, isEmpty, isObject, isUndefined } from "../utils/helper";
+import { objectMerge, isEmpty, isObject, isUndefined } from "../utils/helper";
 import deepmerge from "../utils/styled/deepmerge";
 import emptyTheme from "../constants/emptyTheme";
-import { tagName } from "../constants";
 import type * as Styles from "../types/index.types";
 
 interface StylesCreatorInitParams {
   name: string;
-  stylesCreator: Styles.StylesOrCreator
+  stylesCreator: Styles.StylesOrCreator;
+  classNamePrefix: string;
+  isHashClassName: boolean
 }
 
 class StylesCreator {
   private readonly name: string;
-  private options: Styles.StyleCreatorResultOptions;
+  private options: object;
   private readonly stylesCreator: Styles.StylesOrCreator;
 
   constructor(options: StylesCreatorInitParams) {
-    const { name, stylesCreator } = options
+    const { name, stylesCreator, classNamePrefix } = options
 
-    this.name = name ?? tagName
-    this.options = {
-      name: this.name
-    }
+    this.name = name ?? classNamePrefix
+    this.options = {}
     this.stylesCreator = stylesCreator
 
-    this.init()
+    this.init(options)
   }
 
-  public init() {
+  public init({ classNamePrefix, name, isHashClassName  }: StylesCreatorInitParams) {
+    this.updateOptions({
+      name,
+      meta: classNamePrefix,
+      isHashClassName,
+      classNamePrefix
+    })
+
     if (process.env.NODE_ENV !== 'production') {
       if (!isObject(this.stylesCreator) && typeof this.stylesCreator !== 'function') {
         console.error(
@@ -68,7 +74,7 @@ class StylesCreator {
       return styles
     }
 
-    const stylesWithOverrides = copyObject({}, styles);
+    const stylesWithOverrides = objectMerge({}, styles);
     Object.keys(themeOverrides).forEach(key => {
       stylesWithOverrides[key] = deepmerge(stylesWithOverrides[key] || {}, themeOverrides[key]);
     })
@@ -77,14 +83,11 @@ class StylesCreator {
   }
 
   public getOptions(): Styles.StyleCreatorResultOptions {
-    return this.options
+    return this.options as Styles.StyleCreatorResultOptions
   }
 
   public updateOptions(options: Styles.StyleCreatorUpdateOptions) {
-    this.options = {
-      ...this.options,
-      ...options
-    }
+    objectMerge(this.options, options)
   }
 }
 

@@ -5,7 +5,7 @@ import CSS from "../models/CSS";
 import combinedPropsClassNames from "../utils/styled/combinedPropsClassNames";
 import emptyTheme from "../constants/emptyTheme";
 import { tagName } from "../constants"
-import Sheet from "../models/Sheet";
+import sheet from "../models/Sheet";
 import type * as Styles from "../types/index.types";
 import StylesCreator from "../models/StylesCreator";
 
@@ -54,19 +54,15 @@ function makeStyles<
     defaultTheme = emptyTheme,
     isHashClassName = true
   } = options
-  const stylesCreator = new StylesCreator({
+  const classNamePrefix = name || classNamePrefixOption || tagName;
+  const creatorParams = {
     name,
-    stylesCreator: stylesOrCreator
-  });
-  const sheet = new Sheet()
-
-  const classNamePrefix = classNamePrefixOption || name || tagName;
-  stylesCreator.updateOptions({
-    name,
-    meta: classNamePrefix,
     classNamePrefix,
     isHashClassName,
-    tag: tagName,
+    stylesCreator: stylesOrCreator,
+  }
+  const stylesCreator = new StylesCreator(creatorParams);
+  stylesCreator.updateOptions({
     sheet
   })
 
