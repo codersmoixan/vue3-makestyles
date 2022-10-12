@@ -1,4 +1,4 @@
-import { isEmpty, isObject, isUndefined } from "../utils/helper";
+import { copyObject, isEmpty, isObject, isUndefined } from "../utils/helper";
 import deepmerge from "../utils/styled/deepmerge";
 import emptyTheme from "../constants/emptyTheme";
 import { tagName } from "../constants";
@@ -68,7 +68,7 @@ class StylesCreator {
       return styles
     }
 
-    const stylesWithOverrides = Object.assign({}, styles);
+    const stylesWithOverrides = copyObject({}, styles);
     Object.keys(themeOverrides).forEach(key => {
       stylesWithOverrides[key] = deepmerge(stylesWithOverrides[key] || {}, themeOverrides[key]);
     })

@@ -12,20 +12,9 @@ export class Sheet {
     this.ctr = 0
   }
 
-  public insertSheet({ name, styleKeys }: Styles.StyleCreatorResultOptions) {
-    return (rule: string) => {
-      if (!name) {
-        return this.globalStyleSheet.insert(rule, 'makeStyles')
-      }
-
-      if (this.ctr <= (styleKeys?.length || 1) - 1) {
-        this.ctr++
-        this.componentStyleSheet.insert(rule, name)
-      }
-    }
+  public insertSheet({ name }: Styles.StyleCreatorResultOptions) {
+    return (rule: string) => !name ? this.globalStyleSheet.insert(rule, 'makeStyles') : this.componentStyleSheet.insert(rule, name)
   }
 }
 
-const sheet = new Sheet()
-
-export default sheet
+export default Sheet

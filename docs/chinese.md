@@ -5,7 +5,7 @@ api实现借鉴了 <a href="https://github.com/mui/material-ui/blob/master/packa
 <br />
 阅读本文档将帮助您使用 `makeStyles`， 以下示例使用 `jsx` 编码。
 
-中文文档 <a href="https://github.com/codersmoixan/vue3-makestyles/blob/master/docs/english.md">English</a>
+中文 <a href="https://github.com/codersmoixan/vue3-makestyles/blob/master/docs/english.md">English</a>
 
 # 安装
 ```shell
