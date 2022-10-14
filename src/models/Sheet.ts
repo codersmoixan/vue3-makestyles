@@ -10,7 +10,7 @@ export class Sheet {
     this.creatorOptions = {}
     this.globalStyleSheet = new StyleSheet()
     this.componentStyleSheet = new StyleSheet({
-      maxlength: 200,
+      maxCount: 200,
     })
   }
 
@@ -19,6 +19,7 @@ export class Sheet {
   }
 
   public insertSheet(options: Styles.StyleCreatorResultOptions) {
+    this.creatorOptions = options
     const { meta, name } = options
 
     return (rule: string) => {
@@ -27,7 +28,6 @@ export class Sheet {
         if (sheetOptions.meta !== name) {
           this.initStyleSheet({ meta: name })
         }
-        console.log(sheetOptions, meta, 3352)
 
         this.componentStyleSheet.insert(rule, name)
       } else {

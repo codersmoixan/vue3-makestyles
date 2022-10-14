@@ -9,6 +9,7 @@ interface StylesCreatorInitParams {
   stylesCreator: Styles.StylesOrCreator;
   classNamePrefix: string;
   isHashClassName: boolean;
+  isStyled: boolean;
 }
 
 class StylesCreator {
@@ -26,13 +27,14 @@ class StylesCreator {
     this.init(options)
   }
 
-  public init({ classNamePrefix, name, isHashClassName  }: StylesCreatorInitParams) {
+  public init({ classNamePrefix, name, isHashClassName, isStyled }: StylesCreatorInitParams) {
     this.updateOptions({
       name,
       meta: name || 'makeStyles',
       isHashClassName,
       classNamePrefix,
-      sheet
+      sheet,
+      isStyled
     })
 
     if (process.env.NODE_ENV !== 'production') {

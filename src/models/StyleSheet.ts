@@ -1,8 +1,13 @@
-export const last = (source: any[] = []) => source[source.length - 1]
+export const last = (source: any[]) => source[source.length - 1]
+
+interface Tag {
+  tag: HTMLStyleElement,
+  count: number
+}
 
 interface CssSheet {
-  sheet?: HTMLStyleElement,
-  meta?: string
+  sheet: Tag,
+  meta: string
 }
 
 function makeStyleTag(meta: string) {
@@ -16,67 +21,67 @@ function makeStyleTag(meta: string) {
   return tag
 }
 
-function sheetForTag(tags: HTMLStyleElement[], meta: string): CssSheet {
+function sheetForTag(tags: Tag[], meta: string) {
+  const findTags = []
   // tslint:disable-next-line:prefer-for-of
   for(let i = 0; i < tags.length; i++) {
-    // @ts-ignore
-    const dataMeta = tags[i].getAttribute('data-meta')
+    const dataMeta = tags[i].tag.getAttribute('data-meta')
 
     if(dataMeta === meta) {
-      return {
+      findTags.push({
         sheet: tags[i],
         meta: dataMeta
-      }
+      })
     }
   }
 
-  return {}
+  return last(findTags)
 }
 
 interface StyleSheetParams {
-  maxlength?: number;
+  maxCount?: number;
 }
 
 class StyleSheet {
-  private readonly maxLength: number;
-  private readonly tags: HTMLStyleElement[];
-  private currentLength: number;
+  private readonly maxCount: number;
+  private readonly tags: Tag[];
   private meta: string;
   private cssSheet: CssSheet;
 
-  constructor({ maxlength = 4000 }: StyleSheetParams = {}) {
-    this.maxLength = maxlength
-    this.currentLength = 0
+  constructor({ maxCount = 4000 }: StyleSheetParams = {}) {
+    this.maxCount = maxCount
     this.meta = ''
     this.tags = []
-    this.cssSheet = {}
+    this.cssSheet = {} as any
   }
 
   public init(meta: string = '') {
     this.meta = meta
-    this.currentLength = 0
-    this.tags.push(makeStyleTag(meta))
+    this.tags.push({
+      tag: makeStyleTag(meta),
+      count: 0
+    })
   }
 
   public insert(rules: string, meta: string) {
-    this.cssSheet = sheetForTag(this.tags, meta)
+    this.cssSheet = sheetForTag(this.tags, meta) as CssSheet
+    const identical = this.cssSheet.meta === meta
 
-    this.currentLength++
-
-    if (this.currentLength % this.maxLength === 0) {
-      this.init(meta)
-    }
-
+    this.cssSheet.sheet.count++
     const textNode = document.createTextNode('')
     textNode.appendData(rules)
 
-    return this.cssSheet.meta === meta ? this.cssSheet.sheet?.appendChild(textNode) :last(this.tags).appendChild(textNode)
+    if (this.cssSheet.sheet.count % this.maxCount === 0 || !identical) {
+      this.init(meta)
+      return last(this.tags).tag.appendChild(textNode)
+    }
+
+    this.cssSheet.sheet?.tag.appendChild(textNode)
   }
 
   public getOptions() {
     return {
-      maxLength: this.maxLength,
-      currentLength: this.currentLength,
+      maxCount: this.maxCount,
       meta: this.meta,
       tags: this.tags,
       cssSheet: this.cssSheet

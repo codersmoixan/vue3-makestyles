@@ -1,30 +1,41 @@
 import * as Vue from "vue";
-import type * as Styles from "./index.types";
+import type * as Spacing from "./spacing.types";
+import type * as Theme from "./theme.types"
 import type * as GlobalCSS from "csstype"
 import { Sheet } from "../models/Sheet";
+import * as Styles from "./index.types";
 
 export type ClassNameMap<ClassKey extends string = string> = Record<ClassKey, string>;
 
-export type CSSProperties = GlobalCSS.Properties<number | string | undefined | null | Styles.Spacing | any>
+export type CSSProperties = GlobalCSS.Properties<number | string | undefined | null | Spacing.Spacing>
 
-export interface CreateCSSProperties {
-  [k: string]: CSSProperties | CreateCSSProperties
+export type BaseCssProperties = {
+  [K in keyof Styles.CSSProperties]: Styles.CSSProperties[K]
+}
+
+export interface CreateCSSProperties extends BaseCssProperties{
+  [k: string]: BaseCssProperties[keyof BaseCssProperties] | CreateCSSProperties
+}
+
+export interface StylesProperties {
+  [k: string]: CreateCSSProperties | StylesProperties
 }
 
 export type StyleRulesCallback = (
-  theme: Styles.Theme,
-  props?: Vue.ExtractPropTypes<Styles.InitialObject>
-) => CreateCSSProperties;
+  theme: Theme.Theme,
+  props?: Vue.ExtractPropTypes<Theme.InitialObject>
+) => StylesProperties;
 
-export type StylesOrCreator = CreateCSSProperties | StyleRulesCallback
+export type StylesOrCreator = StylesProperties | StyleRulesCallback
 
 export interface StyleCreatorInitOptions {
   name: string;
   meta: string;
   sheet: Sheet;
+  isStyled: boolean
 }
 
-export interface StyleCreatorUpdateOptions extends Styles.InitialObject {
+export interface StyleCreatorUpdateOptions extends Theme.InitialObject {
   classNamePrefix?: string;
   unit?: string;
   numericalCSS?: string[];
@@ -35,9 +46,10 @@ export interface StyleCreatorUpdateOptions extends Styles.InitialObject {
 
 export interface StyleCreatorResultOptions extends StyleCreatorInitOptions, StyleCreatorUpdateOptions {}
 
-export interface MakeStylesOptions extends Styles.InitialObject{
+export interface MakeStylesOptions extends Theme.InitialObject{
   name?: string
-  classNamePrefix?: string,
-  defaultTheme?: Styles.InitialObject,
-  isHashClassName?: boolean
+  classNamePrefix?: string;
+  defaultTheme?: Theme.InitialObject;
+  isHashClassName?: boolean;
+  isStyled?: boolean
 }

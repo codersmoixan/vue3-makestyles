@@ -125,7 +125,7 @@ class CSS {
         continue;
       }
 
-      const { selector, css, className } = this.generate(value, key);
+      const { selector, css, className } = this.generate(value as any, key);
 
       if (inserted && inserted[className] === selector) {
         continue
