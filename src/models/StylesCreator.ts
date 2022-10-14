@@ -1,13 +1,14 @@
 import { objectMerge, isEmpty, isObject, isUndefined } from "../utils/helper";
 import deepmerge from "../utils/styled/deepmerge";
 import emptyTheme from "../constants/emptyTheme";
+import sheet from "./Sheet";
 import type * as Styles from "../types/index.types";
 
 interface StylesCreatorInitParams {
   name: string;
   stylesCreator: Styles.StylesOrCreator;
   classNamePrefix: string;
-  isHashClassName: boolean
+  isHashClassName: boolean;
 }
 
 class StylesCreator {
@@ -16,9 +17,9 @@ class StylesCreator {
   private readonly stylesCreator: Styles.StylesOrCreator;
 
   constructor(options: StylesCreatorInitParams) {
-    const { name, stylesCreator, classNamePrefix } = options
+    const { name, stylesCreator } = options
 
-    this.name = name ?? classNamePrefix
+    this.name = name
     this.options = {}
     this.stylesCreator = stylesCreator
 
@@ -28,9 +29,10 @@ class StylesCreator {
   public init({ classNamePrefix, name, isHashClassName  }: StylesCreatorInitParams) {
     this.updateOptions({
       name,
-      meta: classNamePrefix,
+      meta: name || 'makeStyles',
       isHashClassName,
-      classNamePrefix
+      classNamePrefix,
+      sheet
     })
 
     if (process.env.NODE_ENV !== 'production') {

@@ -5,10 +5,10 @@ import { Sheet } from "../models/Sheet";
 
 export type ClassNameMap<ClassKey extends string = string> = Record<ClassKey, string>;
 
-export type CSSProperties = GlobalCSS.Properties<number | string | undefined | null | Styles.Spacing>
+export type CSSProperties = GlobalCSS.Properties<number | string | undefined | null | Styles.Spacing | any>
 
 export interface CreateCSSProperties {
-  [k: string]: CSSProperties
+  [k: string]: CSSProperties | CreateCSSProperties
 }
 
 export type StyleRulesCallback = (
@@ -21,6 +21,7 @@ export type StylesOrCreator = CreateCSSProperties | StyleRulesCallback
 export interface StyleCreatorInitOptions {
   name: string;
   meta: string;
+  sheet: Sheet;
 }
 
 export interface StyleCreatorUpdateOptions extends Styles.InitialObject {
@@ -29,7 +30,6 @@ export interface StyleCreatorUpdateOptions extends Styles.InitialObject {
   numericalCSS?: string[];
   styles?: CreateCSSProperties;
   styleKeys?: string[];
-  sheet?: Sheet;
   isHashClassName?: boolean;
 }
 

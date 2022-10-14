@@ -5,7 +5,6 @@ import CSS from "../models/CSS";
 import combinedPropsClassNames from "../utils/styled/combinedPropsClassNames";
 import emptyTheme from "../constants/emptyTheme";
 import { tagName } from "../constants"
-import sheet from "../models/Sheet";
 import type * as Styles from "../types/index.types";
 import StylesCreator from "../models/StylesCreator";
 
@@ -62,10 +61,6 @@ function makeStyles<
     stylesCreator: stylesOrCreator,
   }
   const stylesCreator = new StylesCreator(creatorParams);
-  stylesCreator.updateOptions({
-    sheet
-  })
-
   const css = new CSS(stylesCreator.getOptions())
 
   const useStyles = (props: Vue.ExtractPropTypes<Styles.InitialObject> = {}) => {

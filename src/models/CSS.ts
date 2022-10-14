@@ -49,7 +49,7 @@ class CSS {
   }
 
   public create(styles: Styles.CreateCSSProperties): Styles.InitialObject<string> {
-    const insert = this.creatorOptions.sheet?.insertSheet(this.creatorOptions)
+    const insert = this.creatorOptions.sheet.insertSheet(this.creatorOptions)
     const { classes, stringifyCss } = this.stringify(styles)
     const { hash } = generateHashName(stringifyCss)
     const initHashInserted = this.inserted[this.initHash] ?? {}
