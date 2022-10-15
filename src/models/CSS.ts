@@ -32,7 +32,7 @@ function createClassName({
 class CSS {
   private initHash: string;
   private creatorOptions: Styles.StyleCreatorResultOptions;
-  private inserted: Styles.InitialObject;
+  private readonly inserted: Styles.InitialObject;
 
   constructor(options: Styles.StyleCreatorResultOptions) {
     this.creatorOptions = options
@@ -44,11 +44,11 @@ class CSS {
     this.creatorOptions = creatorOptions
 
     return {
-      create: (styles: Styles.CreateCSSProperties) => this.create(styles)
+      create: (styles: Styles.StylesProperties) => this.create(styles)
     }
   }
 
-  public create(styles: Styles.CreateCSSProperties): Styles.InitialObject<string> {
+  public create(styles: Styles.StylesProperties): Styles.InitialObject<string> {
     const insert = this.creatorOptions.sheet.insertSheet(this.creatorOptions)
     const { classes, stringifyCss } = this.stringify(styles)
     const { hash } = generateHashName(stringifyCss)
@@ -70,7 +70,7 @@ class CSS {
     return objectMerge({}, initHashInserted, classes)
   }
 
-  public generate(options: Styles.CSSProperties, className: string) {
+  public generate(options: Styles.StylesCSSOptions, className: string) {
     const flatCSS = this.flatten(options);
     const stringCSS = stringifyCSS(flatCSS);
 
@@ -79,7 +79,7 @@ class CSS {
       stylesCreatorOptions: this.creatorOptions,
       className
     })
-    const css = stylis(`.${selector}`, stringCSS);
+    const css = stylis(`.${selector}`, stringCSS)
 
     return {
       css,
@@ -88,7 +88,7 @@ class CSS {
     };
   }
 
-  public flatten(CSSOptions: Styles.CSSProperties) {
+  public flatten(CSSOptions: Styles.StylesCSSOptions) {
     const CSSChunk: string[] = [];
     const { unit, numericalCSS: numericalCss } = this.creatorOptions
 
@@ -115,7 +115,7 @@ class CSS {
     return CSSChunk;
   }
 
-  public stringify(styles: Styles.CreateCSSProperties) {
+  public stringify(styles: Styles.StylesProperties) {
     const classes: Styles.InitialObject<string> = {};
     const inserted = this.inserted[this.initHash]
     let stringifyCss = "";
@@ -125,7 +125,7 @@ class CSS {
         continue;
       }
 
-      const { selector, css, className } = this.generate(value as any, key);
+      const { selector, css, className } = this.generate(value, key);
 
       if (inserted && inserted[className] === selector) {
         continue

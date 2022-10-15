@@ -3,7 +3,7 @@ import type { BreakpointsOptions, Breakpoints } from "./breakpoints.types";
 import type { MixinsOptions, Mixins } from "./mixins.types";
 import type { Spacing } from "./spacing.types";
 import type { ThemeUnitOptions } from "./themeUnit.types";
-import type { CreateCSSProperties } from "./constructors.types";
+import type { CreateCSSProperties } from "./styles.types";
 
 export type InitialObject<V = any> = Record<string, V>;
 

@@ -17,8 +17,10 @@ export interface CreateCSSProperties extends BaseCssProperties{
   [k: string]: BaseCssProperties[keyof BaseCssProperties] | CreateCSSProperties
 }
 
+export type StylesCSSOptions = CreateCSSProperties | StylesProperties
+
 export interface StylesProperties {
-  [k: string]: CreateCSSProperties | StylesProperties
+  [k: string]: StylesCSSOptions
 }
 
 export type StyleRulesCallback = (

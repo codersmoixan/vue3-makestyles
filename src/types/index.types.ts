@@ -8,7 +8,7 @@ export * from "./mixins.types"
 export * from "./generateCSS.type"
 export * from "./breakpoints.types"
 export * from "./hidden.types"
-export * from "./constructors.types"
+export * from "./styles.types"
 
 export interface IntrinsicElementAttributes {
   a: Vue.AnchorHTMLAttributes

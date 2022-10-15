@@ -14,7 +14,7 @@ interface StylesCreatorInitParams {
 
 class StylesCreator {
   private readonly name: string;
-  private options: object;
+  private readonly options: object;
   private readonly stylesCreator: Styles.StylesOrCreator;
 
   constructor(options: StylesCreatorInitParams) {
