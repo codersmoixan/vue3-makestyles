@@ -1,6 +1,14 @@
-import { isEmpty } from "../utils/helper";
+export const last = (source: any[]) => source[source.length - 1]
 
-export const last = (source: any[] = []) => source[source.length - 1]
+interface Tag {
+  tag: HTMLStyleElement,
+  count: number
+}
+
+interface CssSheet {
+  sheet: Tag,
+  meta: string
+}
 
 function makeStyleTag(meta: string) {
   const tag = document.createElement('style')
@@ -13,66 +21,71 @@ function makeStyleTag(meta: string) {
   return tag
 }
 
-function sheetForTag(tag: HTMLStyleElement) {
+function sheetForTag(tags: Tag[], meta: string) {
+  const findTags = []
   // tslint:disable-next-line:prefer-for-of
-  for(let i = 0; i < document.styleSheets.length; i++) {
-    if(document.styleSheets[i].ownerNode === tag) {
-      return document.styleSheets[i]
+  for(let i = 0; i < tags.length; i++) {
+    const dataMeta = tags[i].tag.getAttribute('data-meta')
+
+    if(dataMeta === meta) {
+      findTags.push({
+        sheet: tags[i],
+        meta: dataMeta
+      })
     }
   }
+
+  return last(findTags)
 }
 
 interface StyleSheetParams {
-  meta?: string;
-  maxlength?: number;
+  maxCount?: number;
 }
 
 class StyleSheet {
-  private maxLength: number;
-  private currentLength: number;
+  private readonly maxCount: number;
+  private readonly tags: Tag[];
   private meta: string;
-  private tags: any[];
-  private sheet: CSSStyleSheet | undefined;
+  private cssSheet: CssSheet;
 
-  constructor({ maxlength = 4000, meta }: StyleSheetParams = {}) {
-    this.maxLength = maxlength
-    this.currentLength = 0
-    this.meta = meta ?? 'makeStyles'
+  constructor({ maxCount = 4000 }: StyleSheetParams = {}) {
+    this.maxCount = maxCount
+    this.meta = ''
     this.tags = []
-    this.sheet = undefined
-
-    this.init()
+    this.cssSheet = {} as any
   }
 
   public init(meta: string = '') {
-    if (meta && meta !== this.meta) {
-      this.meta = meta
-      this.currentLength = 0
-      this.tags.push(makeStyleTag(meta))
-    }
-
-    if (isEmpty(this.tags)) {
-      this.tags.push(makeStyleTag(this.meta))
-    }
-  }
-
-  public appendRules(rules: string, meta: string) {
-    this.currentLength++
-
-    if (this.currentLength % this.maxLength === 0) {
-      this.currentLength = 0
-      this.tags.push(makeStyleTag(meta))
-    }
-
-    const textNode = document.createTextNode('')
-    last(this.tags).appendChild(textNode)
-    textNode.appendData(rules)
+    this.meta = meta
+    this.tags.push({
+      tag: makeStyleTag(meta),
+      count: 0
+    })
   }
 
   public insert(rules: string, meta: string) {
-    this.sheet = sheetForTag(last(this.tags))
+    this.cssSheet = sheetForTag(this.tags, meta) as CssSheet
+    const identical = this.cssSheet.meta === meta
 
-    this.appendRules(rules, meta)
+    this.cssSheet.sheet.count++
+    const textNode = document.createTextNode('')
+    textNode.appendData(rules)
+
+    if (this.cssSheet.sheet.count % this.maxCount === 0 || !identical) {
+      this.init(meta)
+      return last(this.tags).tag.appendChild(textNode)
+    }
+
+    this.cssSheet.sheet?.tag.appendChild(textNode)
+  }
+
+  public getOptions() {
+    return {
+      maxCount: this.maxCount,
+      meta: this.meta,
+      tags: this.tags,
+      cssSheet: this.cssSheet
+    }
   }
 }
 

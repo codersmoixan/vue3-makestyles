@@ -5,7 +5,6 @@ import CSS from "../models/CSS";
 import combinedPropsClassNames from "../utils/styled/combinedPropsClassNames";
 import emptyTheme from "../constants/emptyTheme";
 import { tagName } from "../constants"
-import sheet from "../models/Sheet";
 import type * as Styles from "../types/index.types";
 import StylesCreator from "../models/StylesCreator";
 
@@ -40,11 +39,7 @@ const effectClasses = (options: EffectOptions, props: Vue.ExtractPropTypes<Style
   forOf(classNames, combinedClasses)
 };
 
-function makeStyles<
-  Theme = Styles.Theme,
-  Props extends object = {},
-  ClassKey extends string = string
->(
+function makeStyles(
   stylesOrCreator: Styles.StylesOrCreator,
   options: Styles.MakeStylesOptions = {}
 ) {
@@ -52,7 +47,8 @@ function makeStyles<
     name = '',
     classNamePrefix: classNamePrefixOption,
     defaultTheme = emptyTheme,
-    isHashClassName = true
+    isHashClassName = true,
+    isStyled = false
   } = options
   const classNamePrefix = name || classNamePrefixOption || tagName;
   const creatorParams = {
@@ -60,12 +56,9 @@ function makeStyles<
     classNamePrefix,
     isHashClassName,
     stylesCreator: stylesOrCreator,
+    isStyled
   }
   const stylesCreator = new StylesCreator(creatorParams);
-  stylesCreator.updateOptions({
-    sheet
-  })
-
   const css = new CSS(stylesCreator.getOptions())
 
   const useStyles = (props: Vue.ExtractPropTypes<Styles.InitialObject> = {}) => {

@@ -193,7 +193,7 @@ export default createTheme({
 ```
 然后在你的项目 `App.jsx` 文件中使用 `ThemeProvider` 将你的自定义配置依赖注入到项目全局中，然后你就可以在项目的任何地方使用你的配置文件中的配置了。
 
-如果你想使用你刚刚在配置文件中定义的配置，`makeStyles`提供了一个钩子函数`useTheme`，可以让你在自定义配置文件中获取相关配置。
+如果你想使用你刚刚在配置文件中定义的配置，`makeStyles`提供了一个钩子函数`useTheme`，可以让你获取在自定义配置文件中相关配置。
 ```JS
 import { useTheme } from "vue3-makestyles"
 // ...

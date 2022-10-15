@@ -1,36 +1,40 @@
 import { objectMerge, isEmpty, isObject, isUndefined } from "../utils/helper";
 import deepmerge from "../utils/styled/deepmerge";
 import emptyTheme from "../constants/emptyTheme";
+import sheet from "./Sheet";
 import type * as Styles from "../types/index.types";
 
 interface StylesCreatorInitParams {
   name: string;
   stylesCreator: Styles.StylesOrCreator;
   classNamePrefix: string;
-  isHashClassName: boolean
+  isHashClassName: boolean;
+  isStyled: boolean;
 }
 
 class StylesCreator {
   private readonly name: string;
-  private options: object;
+  private readonly options: object;
   private readonly stylesCreator: Styles.StylesOrCreator;
 
   constructor(options: StylesCreatorInitParams) {
-    const { name, stylesCreator, classNamePrefix } = options
+    const { name, stylesCreator } = options
 
-    this.name = name ?? classNamePrefix
+    this.name = name
     this.options = {}
     this.stylesCreator = stylesCreator
 
     this.init(options)
   }
 
-  public init({ classNamePrefix, name, isHashClassName  }: StylesCreatorInitParams) {
+  public init({ classNamePrefix, name, isHashClassName, isStyled }: StylesCreatorInitParams) {
     this.updateOptions({
       name,
-      meta: classNamePrefix,
+      meta: name || 'makeStyles',
       isHashClassName,
-      classNamePrefix
+      classNamePrefix,
+      sheet,
+      isStyled
     })
 
     if (process.env.NODE_ENV !== 'production') {

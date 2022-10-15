@@ -1,7 +1,5 @@
-import type { InitialObject } from "./theme.types";
+export type MixinsKey = "toolbar" | string;
 
-export type MixinsKey = "toolbar" | string | object;
+export type Mixins = Record<MixinsKey, any>;
 
-export type Mixins = InitialObject<MixinsKey>;
-
-export type MixinsOptions = InitialObject<MixinsKey>;
+export type MixinsOptions = Record<MixinsKey, any>;
