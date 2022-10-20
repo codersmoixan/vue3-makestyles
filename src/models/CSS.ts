@@ -1,7 +1,7 @@
-import generateHashName from "../utils/styled/generateHashName";
-import { objectMerge, isEmpty, isNumber, isObject, isUndefined, toLine } from "../utils/helper";
-import stringifyCSS from "../utils/styled/stringifyCSS";
 import stylis from "stylis";
+import generateHashName from "../utils/styled/generateHashName";
+import { objectMerge, isEmpty, isNumber, isObject, isUndefined, toLine, isNull } from "../utils/helper";
+import stringifyCSS from "../utils/styled/stringifyCSS";
 import numericalCSS from "../constants/numericalCSS";
 import type * as Styles from "../types/index.types"
 
@@ -93,7 +93,7 @@ class CSS {
     const { unit, numericalCSS: numericalCss } = this.creatorOptions
 
     for (const [key, value] of Object.entries(CSSOptions)) {
-      if (isEmpty(value)) {
+      if (isUndefined(value) || isNull(value)) {
         continue;
       }
 
