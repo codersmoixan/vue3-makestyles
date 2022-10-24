@@ -1,8 +1,9 @@
 import stylis from "stylis";
 import generateHashName from "../utils/styled/generateHashName";
-import { objectMerge, isEmpty, isNumber, isObject, isUndefined, toLine } from "../utils/helper";
+import { objectMerge, isEmpty, isNumber, isObject, isUndefined, toLine, isNull } from "../utils/helper";
 import stringifyCSS from "../utils/styled/stringifyCSS";
 import numericalCSS from "../constants/numericalCSS";
+import { _root } from "../constants";
 import type * as Styles from "../types/index.types"
 
 interface CreateClassNameResult {
@@ -33,15 +34,18 @@ class CSS {
   private initHash: string;
   private creatorOptions: Styles.StyleCreatorResultOptions;
   private readonly inserted: Styles.InitialObject;
+  private _root: string;
 
   constructor(options: Styles.StyleCreatorResultOptions) {
     this.creatorOptions = options
     this.inserted = {}
     this.initHash = ''
+    this._root = ''
   }
 
   public init(creatorOptions: Styles.StyleCreatorResultOptions) {
     this.creatorOptions = creatorOptions
+    this._root = ''
 
     return {
       create: (styles: Styles.StylesProperties) => this.create(styles)
@@ -79,7 +83,12 @@ class CSS {
       stylesCreatorOptions: this.creatorOptions,
       className
     })
-    const css = stylis(`.${selector}`, stringCSS)
+
+    if (className === _root) {
+      this._root = selector
+    }
+
+    const css = (isEmpty(this._root) || className === _root) ? stylis(`.${selector}`, stringCSS) : stylis(`.${this._root} .${selector}`, stringCSS)
 
     return {
       css,
@@ -93,7 +102,7 @@ class CSS {
     const { unit, numericalCSS: numericalCss } = this.creatorOptions
 
     for (const [key, value] of Object.entries(CSSOptions)) {
-      if (isEmpty(value)) {
+      if (isUndefined(value) || isNull(value)) {
         continue;
       }
 
@@ -121,7 +130,7 @@ class CSS {
     let stringifyCss = "";
 
     for (const [key, value] of Object.entries(styles)) {
-      if (isEmpty(value)) {
+      if (isUndefined(value) || isNull(value)) {
         continue;
       }
 
