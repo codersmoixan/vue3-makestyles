@@ -330,3 +330,23 @@ export default defineComponent({
   }
 })
 ```
+
+## CSS权重
+makeStyles生成的css样式默认是根据引入css文件的顺序进行加载的，有可能会有别的css文件会影响到当前的样式。这时候你可以增加权重来自定义你的样式。
+
+makeStyles提供了一种增加权重的方式，可以给当前组件的容器提供一个"_root"类名，然后将"_root"类名传递给你的组件根容器元素。此时你在makeStyles里面定义的别的样式类，都会作为"_root"的后代（当然你也可以按照你的方式来增加权重）。
+```JS
+// ...
+
+const useStyles = makeStyles({
+  _root: {
+    width: 200,
+    height: 200,
+    backgroundColor: 'red'
+  },
+  active: {} // 此时定义的别的样式类都将成为_root的后代样式类
+})
+
+// ...
+```
+>也就是说当你添加了"_root容器之后"，你就不应该再使用makeStyles里面定义的别的样式类了，这里定义的样式类除了"_root"之外都属于后代样式类了。

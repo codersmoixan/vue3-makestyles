@@ -16,7 +16,7 @@ interface EffectOptions {
 }
 
 const effectClasses = (options: EffectOptions, props: Vue.ExtractPropTypes<Styles.InitialObject> = {}) => {
-  const { theme, stylesCreator, classNames, css } = options
+  const { theme, stylesCreator, classNames, css: cssCreator } = options
 
   const styles = stylesCreator.create(theme, props);
   stylesCreator.updateOptions({
@@ -28,8 +28,8 @@ const effectClasses = (options: EffectOptions, props: Vue.ExtractPropTypes<Style
     return;
   }
 
-  const combinedCSS = css.init(stylesCreator.getOptions());
-  const classes = combinedCSS.create(styles)
+  const css = cssCreator.init(stylesCreator.getOptions());
+  const classes = css.create(styles)
 
   const combinedClasses = combinedPropsClassNames(
     classes,

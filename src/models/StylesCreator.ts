@@ -2,6 +2,7 @@ import { objectMerge, isEmpty, isObject, isUndefined } from "../utils/helper";
 import deepmerge from "../utils/styled/deepmerge";
 import emptyTheme from "../constants/emptyTheme";
 import sheet from "./Sheet";
+import { makeStylesMeta } from "../constants";
 import type * as Styles from "../types/index.types";
 
 interface StylesCreatorInitParams {
@@ -30,7 +31,7 @@ class StylesCreator {
   public init({ classNamePrefix, name, isHashClassName, isStyled }: StylesCreatorInitParams) {
     this.updateOptions({
       name,
-      meta: name || 'makeStyles',
+      meta: name || makeStylesMeta,
       isHashClassName,
       classNamePrefix,
       sheet,
