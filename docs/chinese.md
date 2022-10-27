@@ -354,6 +354,7 @@ export default defineComponent({
     
     return () => (
       <div class={classes._root}>
+        <div class={classes.active}></div>
         ...
       </div>
     )
