@@ -347,6 +347,17 @@ const useStyles = makeStyles({
   active: {} // 此时定义的别的样式类都将成为_root的后代样式类
 })
 
-// ...
+export default defineComponent({
+  setup() {
+    const classes = useStyles()
+    // ...
+    
+    return () => (
+      <div class={classes._root}>
+        ...
+      </div>
+    )
+  }
+})
 ```
 >也就是说当你添加了"_root容器之后"，你就不应该再使用makeStyles里面定义的别的样式类了，这里定义的样式类除了"_root"之外都属于后代样式类了。

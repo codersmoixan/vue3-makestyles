@@ -345,5 +345,18 @@ const useStyles = makeStyles({
   },
   active: {} // All other style classes defined at this time will become descendant style classes of _root
 })
+
+export default defineComponent({
+  setup() {
+    const classes = useStyles()
+    // ...
+
+    return () => (
+      <div class={classes._root}>
+        ...
+      </div>
+    )
+  }
+})
 ```
 >That is to say, when you add the "_root container", you should no longer use other style classes defined in makeStyles. The style classes defined here belong to descendant style classes except "_root".
